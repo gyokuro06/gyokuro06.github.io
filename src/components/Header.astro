@@ -1,0 +1,197 @@
+---
+import { Image } from "astro:assets";
+import logo from "../assets/header/logo.png";
+import rightLeafIcon from "../assets/header/right_leaf_icon.png";
+
+interface NavItem {
+	href: string;
+	label: string;
+}
+
+const siteTitle = "sleepy-turtle";
+const siteDescription = "ゆるく育てる、技術と考えごとのログ";
+
+const navItems: NavItem[] = [
+	{ href: "/posts", label: "Posts" },
+];
+
+const currentPath = Astro.url.pathname;
+const isCurrent = (href: string) =>
+	href === "/" ? currentPath === "/" : currentPath.startsWith(href);
+---
+
+<header class="site-header">
+	<div class="site-header-inner">
+		<a class="site-brand" href="/" aria-label={`${siteTitle} home`}>
+			<span class="site-logo" aria-hidden="true">
+				<Image src={logo} alt={siteTitle} width={68} height={68} />
+			</span>
+			<span class="site-brand-text">
+				<span class="site-title">{siteTitle}</span>
+				<span class="site-description">{siteDescription}</span>
+			</span>
+		</a>
+
+		<nav class="site-nav" aria-label="メインナビゲーション">
+			{
+				navItems.map((item) => (
+					<a
+						href={item.href}
+						aria-current={isCurrent(item.href) ? "page" : undefined}
+					>
+						{item.label}
+					</a>
+				))
+			}
+		</nav>
+	</div>
+	<Image
+		class="site-sprig"
+		src={rightLeafIcon}
+		alt=""
+		width={97}
+		height={77}
+		aria-hidden="true"
+	/>
+</header>
+
+<style>
+	.site-header {
+		position: relative;
+		border-block: 1px solid color-mix(in srgb, var(--border) 48%, transparent);
+		background: var(--background);
+	}
+
+	.site-header-inner {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 2rem;
+		min-height: 7rem;
+		margin-inline: 3rem 5.5rem;
+	}
+
+	.site-brand {
+		display: inline-flex;
+		align-items: center;
+		gap: 1.25rem;
+		color: var(--text-secondary);
+		text-decoration: none;
+	}
+
+	.site-logo {
+		display: grid;
+		flex: 0 0 auto;
+		width: 4.25rem;
+		aspect-ratio: 1;
+		place-items: center;
+		border-radius: 999px;
+	}
+
+	.site-logo :global(img) {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+	}
+
+	.site-brand-text {
+		display: grid;
+		gap: 0.5rem;
+	}
+
+	.site-title {
+		font-family: var(--font-site-title);
+		font-size: 2rem;
+		font-weight: 800;
+		line-height: 1;
+		color: var(--primary);
+	}
+
+	.site-description {
+		font-size: 0.625rem;
+		line-height: 1.5;
+	}
+
+	.site-header-actions {
+		display: flex;
+		align-items: center;
+		gap: 2.75rem;
+	}
+
+	.site-nav {
+		display: flex;
+		align-items: center;
+		gap: clamp(1.5rem, 4vw, 3rem);
+		color: var(--text-secondary);
+		font-size: 1.4rem;
+		font-weight: 700;
+		line-height: 1;
+	}
+
+	.site-nav a {
+		text-decoration: none;
+		color: var(--text-secondary);
+	}
+
+	.site-nav a:hover,
+	.site-nav a[aria-current="page"] {
+		text-decoration: underline;
+	}
+
+	.site-sprig {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		display: block;
+		width: 4.75rem;
+		height: auto;
+		margin-right: 32px;
+		margin-bottom: 8px;
+	}
+
+	@media (max-width: 760px) {
+		.site-header-inner {
+			align-items: flex-start;
+			flex-direction: column;
+			gap: 1.5rem;
+			min-height: auto;
+			padding-block: 1.5rem;
+		}
+
+		.site-header-actions {
+			width: 100%;
+			justify-content: space-between;
+			gap: 1rem;
+		}
+
+		.site-nav {
+			flex-wrap: wrap;
+			gap: 1rem 1.5rem;
+			font-size: 1.05rem;
+		}
+
+		.site-sprig {
+			width: 3.5rem;
+		}
+	}
+
+	@media (max-width: 420px) {
+		.site-brand {
+			align-items: flex-start;
+			gap: 0.9rem;
+		}
+
+		.site-logo {
+			width: 3.4rem;
+		}
+
+		.site-title {
+			font-size: 1.55rem;
+		}
+
+		.site-description {
+			font-size: 0.82rem;
+		}
+	}
+</style>
