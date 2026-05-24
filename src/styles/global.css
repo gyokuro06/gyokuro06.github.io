@@ -1,0 +1,95 @@
+:root {
+	/* Figma color primitives: figma/colors.json $.Color.Primitive.* */
+	--color-primitive-neutral-10: #fefefd;
+	--color-primitive-neutral-20: #fdfdfc;
+	--color-primitive-neutral-30: #fbfcf8;
+	--color-primitive-neutral-40: #f8faf4;
+	--color-primitive-neutral-50: #f5f7ef;
+	--color-primitive-neutral-60: #f2f5ea;
+	--color-primitive-neutral-70: #d0d3c9;
+	--color-primitive-neutral-80: #aeb0a8;
+	--color-primitive-neutral-90: #83847e;
+	--color-primitive-neutral-100: #575854;
+	--color-primitive-primary-10: #f1f3f1;
+	--color-primitive-primary-20: #e3e8e3;
+	--color-primitive-primary-30: #c7d1c8;
+	--color-primitive-primary-40: #a3b4a5;
+	--color-primitive-primary-50: #768f78;
+	--color-primitive-primary-60: #4f6f52;
+	--color-primitive-primary-70: #445f47;
+	--color-primitive-primary-80: #39503b;
+	--color-primitive-primary-90: #2f3e34;
+	--color-primitive-primary-100: #1c281e;
+	--color-primitive-secondary-10: #f8f9f5;
+	--color-primitive-secondary-20: #f1f3ec;
+	--color-primitive-secondary-30: #e3e7d9;
+	--color-primitive-secondary-40: #d2d7c1;
+	--color-primitive-secondary-50: #bcc4a2;
+	--color-primitive-secondary-60: #a9b388;
+	--color-primitive-secondary-70: #919a75;
+	--color-primitive-secondary-80: #7a8162;
+	--color-primitive-secondary-90: #5b6149;
+	--color-primitive-secondary-100: #3d4031;
+	--color-primitive-accent-10: #fcf7f2;
+	--color-primitive-accent-20: #faf0e5;
+	--color-primitive-accent-30: #f4e1cb;
+	--color-primitive-accent-40: #edceab;
+	--color-primitive-accent-50: #e4b681;
+	--color-primitive-accent-60: #dda15e;
+	--color-primitive-accent-70: #be8a51;
+	--color-primitive-accent-80: #9f7444;
+	--color-primitive-accent-90: #775733;
+	--color-primitive-accent-100: #503a22;
+	--color-primitive-error-10: #f9f2f1;
+	--color-primitive-error-20: #f4e5e2;
+	--color-primitive-error-30: #e8cbc5;
+	--color-primitive-error-40: #daaaa1;
+	--color-primitive-error-50: #c88072;
+	--color-primitive-error-60: #b85c4a;
+	--color-primitive-error-70: #9e4f40;
+	--color-primitive-error-80: #844235;
+	--color-primitive-error-90: #633228;
+	--color-primitive-error-100: #42211b;
+	--color-primitive-info-10: #f2f5f6;
+	--color-primitive-info-20: #e5eaec;
+	--color-primitive-info-30: #cbd5da;
+	--color-primitive-info-40: #aabbc2;
+	--color-primitive-info-50: #7f99a4;
+	--color-primitive-info-60: #5b7c8a;
+	--color-primitive-info-70: #4e6b77;
+	--color-primitive-info-80: #425963;
+	--color-primitive-info-90: #31434b;
+	--color-primitive-info-100: #212d32;
+
+	--background: var(--color-primitive-neutral-60);
+	--surface: var(--color-primitive-neutral-50);
+	--border: var(--color-primitive-neutral-90);
+	--primary: var(--color-primitive-primary-60);
+	--text-primary: var(--color-primitive-primary-100);
+	--text-secondary: var(--color-primitive-primary-60);
+	--button-primary-background: var(--color-primitive-primary-60);
+	--button-primary-background-hover: var(--color-primitive-primary-50);
+	--button-primary-text: var(--color-primitive-neutral-60);
+	--font-body: 'Zen Maru Gothic', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+		sans-serif;
+	--font-display: 'Zen Kurenaido', serif;
+	--font-quote: 'Klee One', cursive;
+	--font-code: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+		'Liberation Mono', 'Courier New', monospace;
+	--font-site-title: var(--font-display);
+	--font-heading-1: var(--font-display);
+	--font-article-title: var(--font-display);
+	--font-article-body: var(--font-body);
+	--font-quote-text: var(--font-quote);
+	--font-meta: var(--font-body);
+
+	/* Type scale: use by meaning, not by ad hoc visual tweaks. */
+	--text-xs: 0.75rem; /* 12px: meta text, tags, compact labels */
+	--text-sm: 0.875rem; /* 14px: small UI text, secondary card text */
+	--text-md: 1rem; /* 16px: default body text */
+	--text-lg: 1.125rem; /* 18px: lead text, emphasized body copy */
+	--text-xl: 1.5rem; /* 24px: section headings, card titles */
+	--text-2xl: 2rem; /* 32px: article titles, featured card titles */
+	--text-3xl: 3rem; /* 48px: page headings */
+	--text-4xl: 4rem; /* 64px: large hero headings */
+}

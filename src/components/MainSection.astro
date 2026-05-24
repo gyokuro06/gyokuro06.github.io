@@ -1,0 +1,120 @@
+---
+import ArticleCard from './ArticleCard.astro';
+
+interface Article {
+	title: string;
+	category: string;
+	date: string;
+	readingTime: string;
+	excerpt: string;
+	tags: string[];
+	href: string;
+}
+
+interface Props {
+	articles: Article[];
+}
+
+const { articles } = Astro.props;
+const [featuredArticle, ...otherArticles] = articles;
+---
+
+<section class="main-section" aria-labelledby="recent-title">
+	<div class="section-heading">
+		<h2 id="recent-title">最近の足あと</h2>
+	</div>
+
+	<div class="article-grid">
+		{featuredArticle && <ArticleCard article={featuredArticle} featured />}
+		<div class="side-list">
+			{otherArticles.map((article) => <ArticleCard article={article} />)}
+		</div>
+	</div>
+</section>
+
+<style>
+	.main-section {
+		position: relative;
+		padding-block: 1.25rem 4rem;
+	}
+
+	.main-section::before {
+		position: absolute;
+		inset-block: 1.25rem 0;
+		inset-inline-start: 0;
+		width: 2px;
+		background: #e7a24c;
+		content: '';
+	}
+
+	.section-heading {
+		display: flex;
+		align-items: center;
+		gap: 2rem;
+		margin-block-end: 2rem;
+		padding-inline-start: 1.8rem;
+	}
+
+	.section-heading::before,
+	.section-heading::after {
+		height: 1px;
+		background: color-mix(in srgb, var(--border) 25%, transparent);
+		content: '';
+	}
+
+	.section-heading::before {
+		width: 3rem;
+		margin-inline-start: -1.8rem;
+	}
+
+	.section-heading::after {
+		flex: 1;
+	}
+
+	h2 {
+		margin: 0;
+		color: var(--text-primary);
+		font-size: clamp(var(--text-lg), 2vw, var(--text-2xl));
+		font-weight: 700;
+		letter-spacing: 0;
+		line-height: 1;
+	}
+
+	.article-grid {
+		display: grid;
+		grid-template-columns: minmax(22rem, 1.05fr) minmax(32rem, 1.35fr);
+		gap: clamp(2rem, 4vw, 3.25rem);
+		padding-inline-start: clamp(1.75rem, 4vw, 3.75rem);
+	}
+
+	.side-list {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 1.75rem;
+	}
+
+	@media (max-width: 1100px) {
+		.article-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media (max-width: 720px) {
+		.main-section::before {
+			inset-inline-start: 0.25rem;
+		}
+
+		.section-heading {
+			gap: 1rem;
+		}
+
+		.article-grid {
+			padding-inline-start: 1.25rem;
+		}
+
+		.side-list {
+			grid-template-columns: 1fr;
+		}
+
+	}
+</style>

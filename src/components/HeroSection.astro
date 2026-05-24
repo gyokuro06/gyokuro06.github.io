@@ -1,0 +1,133 @@
+---
+import Calendar from '@lucide/astro/icons/calendar';
+import Clock3 from '@lucide/astro/icons/clock-3';
+
+const hero = {
+	label: 'About',
+	title: '怠惰な人間なりに、\n少しずつ成長するためのログ',
+	date: '2025.04.18',
+	cadence: '週1で更新できたらやる',
+	tags: ['技術', '内省', '成長', 'sleepy-turtle'],
+	body: ['誰かに見せるためというより', '未来の自分が戻って来れるように', '小さな発見と、考えごとの跡を静かに残していく'],
+};
+---
+
+<section class="hero-section" aria-labelledby="hero-title">
+	<p class="hero-label">{hero.label}</p>
+	<h1 id="hero-title">{hero.title}</h1>
+
+	<div class="hero-meta" aria-label="ブログの基本情報">
+		<span class="hero-meta-item">
+			<Calendar class="hero-meta-icon" aria-hidden="true" />
+			{hero.date}
+		</span>
+		<span class="hero-meta-item">
+			<Clock3 class="hero-meta-icon" aria-hidden="true" />
+			{hero.cadence}
+		</span>
+		<span class="hero-meta-item">{hero.tags.map((tag) => `#${tag}`).join('　')}</span>
+	</div>
+
+	<div class="hero-note">
+		{hero.body.map((line) => <p>{line}</p>)}
+	</div>
+</section>
+
+<style>
+	.hero-section {}
+
+	.hero-label {
+		width: fit-content;
+		min-height: 2.25rem;
+		padding-inline: 1.05rem;
+		padding-block-start: 0.25rem;
+		border-radius: 999px;
+		background: color-mix(in srgb, var(--text-secondary) 22%, transparent);
+		color: var(--text-secondary);
+		font-weight: 700;
+	}
+
+	h1 {
+		max-width: 58rem;
+		margin: 0;
+		margin-bottom: 24px;
+		white-space: pre-line;
+		color: var(--text-primary);
+		font-family: var(--font-article-title);
+		font-size: clamp(var(--text-2xl), calc(var(--text-2xl) + 5vw), var(--text-4xl));
+		font-weight: 400;
+		letter-spacing: 0;
+		line-height: 1.35;
+	}
+
+	.hero-meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem 1.3rem;
+		color: var(--color-primitive-primary-50);
+		font-size: var(--text-md);
+		font-family: var(--font-meta);
+		line-height: 1.5;
+	}
+
+	.hero-meta-item {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		line-height: 1.5;
+	}
+
+	.hero-meta-icon {
+		flex: 0 0 auto;
+		width: 1em;
+		height: 1em;
+		stroke-width: 1.8;
+		transform: translateY(0.08em);
+	}
+
+	.hero-meta-item + .hero-meta-item {
+		position: relative;
+		padding-inline-start: 1.3rem;
+	}
+
+	.hero-meta-item + .hero-meta-item::before {
+		position: absolute;
+		inset-block: 0.3rem;
+		inset-inline-start: 0;
+		width: 1px;
+		background: color-mix(in srgb, var(--border) 28%, transparent);
+		content: '';
+	}
+
+	.hero-note {
+		margin-block-start: 2rem;
+		padding-inline-start: 1.25rem;
+		border-inline-start: 2px solid #e7a24c;
+		color: var(--text-secondary);
+		font-size: clamp(var(--text-md), 1.2vw, var(--text-lg));
+		font-weight: 700;
+		line-height: 1.9;
+	}
+
+	.hero-note p {
+		margin: 0;
+	}
+
+	@media (max-width: 720px) {
+		.hero-section {
+			padding-block-start: 2rem;
+		}
+
+		.hero-meta {
+			display: grid;
+		}
+
+		.hero-meta-item + .hero-meta-item {
+			padding-inline-start: 0;
+		}
+
+		.hero-meta-item + .hero-meta-item::before {
+			content: none;
+		}
+	}
+</style>
