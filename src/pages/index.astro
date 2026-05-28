@@ -58,6 +58,14 @@ const articles = [
 ---
 
 <Layout title="sleepy-turtle">
-	<HeroSection />
+	<div class="hero-section-container">
+		<HeroSection />
+	</div>
 	<MainSection articles={articles} />
 </Layout>
+
+<style>
+	.hero-section-container {
+		margin-block-end: 46px;
+	}
+</style>

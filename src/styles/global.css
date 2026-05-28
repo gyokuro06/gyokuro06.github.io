@@ -70,6 +70,7 @@
 	--button-primary-background: var(--color-primitive-primary-60);
 	--button-primary-background-hover: var(--color-primitive-primary-50);
 	--button-primary-text: var(--color-primitive-neutral-60);
+	--accent-primary: var(--color-primitive-accent-60);
 	--font-body: 'Zen Maru Gothic', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
 		sans-serif;
 	--font-display: 'Zen Kurenaido', serif;
