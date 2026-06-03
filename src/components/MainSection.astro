@@ -25,7 +25,9 @@ const [featuredArticle, ...otherArticles] = articles;
 	</div>
 
 	<div class="article-grid">
-		{featuredArticle && <ArticleCard article={featuredArticle} featured />}
+		<div class="featured-slot">
+			{featuredArticle && <ArticleCard article={featuredArticle} featured />}
+		</div>
 		<div class="side-list">
 			{otherArticles.map((article) => <ArticleCard article={article} />)}
 		</div>
@@ -43,7 +45,7 @@ const [featuredArticle, ...otherArticles] = articles;
 		inset-block: 1.25rem 0;
 		inset-inline-start: 0;
 		width: 2px;
-		background: #e7a24c;
+		background: var(--accent-primary);
 		content: '';
 	}
 
@@ -55,7 +57,6 @@ const [featuredArticle, ...otherArticles] = articles;
 		padding-inline-start: 1.8rem;
 	}
 
-	.section-heading::before,
 	.section-heading::after {
 		height: 1px;
 		background: color-mix(in srgb, var(--border) 25%, transparent);
@@ -75,27 +76,75 @@ const [featuredArticle, ...otherArticles] = articles;
 		margin: 0;
 		color: var(--text-primary);
 		font-size: clamp(var(--text-lg), 2vw, var(--text-2xl));
-		font-weight: 700;
+		font-family: var(--font-heading-1);
+		font-weight: 600;
 		letter-spacing: 0;
 		line-height: 1;
 	}
 
 	.article-grid {
+		--article-card-row-min: 17.5rem;
+		--article-card-gap: 1.75rem;
 		display: grid;
 		grid-template-columns: minmax(22rem, 1.05fr) minmax(32rem, 1.35fr);
-		gap: clamp(2rem, 4vw, 3.25rem);
+		align-items: stretch;
+		column-gap: clamp(2rem, 4vw, 3.25rem);
 		padding-inline-start: clamp(1.75rem, 4vw, 3.75rem);
+	}
+
+	.featured-slot {
+		display: flex;
+		min-height: 0;
+	}
+
+	.featured-slot :global(.article-card.featured) {
+		flex: 1;
+		width: 100%;
+		min-height: 0;
 	}
 
 	.side-list {
 		display: grid;
 		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 1.75rem;
+		grid-template-rows: repeat(2, minmax(var(--article-card-row-min), auto));
+		gap: var(--article-card-gap);
+	}
+
+	@media (min-width: 1101px) {
+		.article-grid {
+			--article-grid-block-height: calc(
+				2 * var(--article-card-row-min) + var(--article-card-gap)
+			);
+		}
+
+		.featured-slot,
+		.side-list {
+			height: var(--article-grid-block-height);
+		}
+
+		.side-list {
+			grid-template-rows: repeat(2, minmax(0, 1fr));
+		}
+
+		.side-list :global(.article-card) {
+			min-height: 0;
+		}
 	}
 
 	@media (max-width: 1100px) {
 		.article-grid {
 			grid-template-columns: 1fr;
+			row-gap: var(--article-card-gap);
+		}
+
+		.featured-slot :global(.article-card.featured) {
+			flex: none;
+			width: auto;
+		}
+
+		.side-list {
+			grid-template-rows: none;
+			grid-auto-rows: minmax(var(--article-card-row-min), auto);
 		}
 	}
 

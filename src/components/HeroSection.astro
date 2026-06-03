@@ -1,6 +1,8 @@
 ---
+import { Image } from 'astro:assets';
 import Calendar from '@lucide/astro/icons/calendar';
 import Clock3 from '@lucide/astro/icons/clock-3';
+import topMainVisual from '../assets/top_mmain_visual.png';
 
 const hero = {
 	label: 'About',
@@ -13,28 +15,62 @@ const hero = {
 ---
 
 <section class="hero-section" aria-labelledby="hero-title">
-	<p class="hero-label">{hero.label}</p>
-	<h1 id="hero-title">{hero.title}</h1>
+	<div class="hero-content">
+		<p class="hero-label">{hero.label}</p>
+		<h1 id="hero-title">{hero.title}</h1>
 
-	<div class="hero-meta" aria-label="ブログの基本情報">
-		<span class="hero-meta-item">
-			<Calendar class="hero-meta-icon" aria-hidden="true" />
-			{hero.date}
-		</span>
-		<span class="hero-meta-item">
-			<Clock3 class="hero-meta-icon" aria-hidden="true" />
-			{hero.cadence}
-		</span>
-		<span class="hero-meta-item">{hero.tags.map((tag) => `#${tag}`).join('　')}</span>
+		<div class="hero-meta" aria-label="ブログの基本情報">
+			<span class="hero-meta-item">
+				<Calendar class="hero-meta-icon" aria-hidden="true" />
+				{hero.date}
+			</span>
+			<span class="hero-meta-item">
+				<Clock3 class="hero-meta-icon" aria-hidden="true" />
+				{hero.cadence}
+			</span>
+			<span class="hero-meta-item">{hero.tags.map((tag) => `#${tag}`).join('　')}</span>
+		</div>
+
+		<div class="hero-note">
+			{hero.body.map((line) => <p>{line}</p>)}
+		</div>
 	</div>
 
-	<div class="hero-note">
-		{hero.body.map((line) => <p>{line}</p>)}
+	<div class="hero-visual" aria-hidden="true">
+		<Image
+			src={topMainVisual}
+			alt=""
+			width={976}
+			height={976}
+			loading="eager"
+			decoding="async"
+		/>
 	</div>
 </section>
 
 <style>
-	.hero-section {}
+	.hero-section {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(12rem, 24rem);
+		align-items: center;
+		column-gap: clamp(1.5rem, 3.5vw, 3rem);
+	}
+
+	.hero-content {
+		min-width: 0;
+	}
+
+	.hero-visual {
+		justify-self: end;
+		width: 100%;
+		max-width: 24rem;
+	}
+
+	.hero-visual :global(img) {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
 
 	.hero-label {
 		width: fit-content;
@@ -112,9 +148,27 @@ const hero = {
 		margin: 0;
 	}
 
+	@media (max-width: 900px) {
+		.hero-section {
+			grid-template-columns: minmax(0, 1fr) minmax(9rem, 16rem);
+			column-gap: 1.25rem;
+		}
+
+		.hero-visual {
+			max-width: 16rem;
+		}
+	}
+
 	@media (max-width: 720px) {
 		.hero-section {
+			grid-template-columns: 1fr;
+			row-gap: 1.75rem;
 			padding-block-start: 2rem;
+		}
+
+		.hero-visual {
+			justify-self: center;
+			max-width: min(70vw, 14rem);
 		}
 
 		.hero-meta {
