@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import Calendar from '@lucide/astro/icons/calendar';
 import Clock3 from '@lucide/astro/icons/clock-3';
 import topMainVisual from '../assets/top_mmain_visual.png';
+import CategoryBadge from './CategoryBadge.astro';
 
 const hero = {
 	label: 'About',
@@ -16,7 +17,12 @@ const hero = {
 
 <section class="hero-section" aria-labelledby="hero-title">
 	<div class="hero-content">
-		<p class="hero-label">{hero.label}</p>
+		<div class="hero-label-wrap">
+			<CategoryBadge
+				label={hero.label}
+				style="--category-badge-font-size: var(--text-md)"
+			/>
+		</div>
 		<h1 id="hero-title">{hero.title}</h1>
 
 		<div class="hero-meta" aria-label="ブログの基本情報">
@@ -72,15 +78,8 @@ const hero = {
 		height: auto;
 	}
 
-	.hero-label {
-		width: fit-content;
-		min-height: 2.25rem;
-		padding-inline: 1.05rem;
-		padding-block-start: 0.25rem;
-		border-radius: 999px;
-		background: color-mix(in srgb, var(--text-secondary) 22%, transparent);
-		color: var(--text-secondary);
-		font-weight: 700;
+	.hero-label-wrap {
+		margin-block-end: 1rem;
 	}
 
 	h1 {

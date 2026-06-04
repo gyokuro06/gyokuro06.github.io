@@ -1,0 +1,36 @@
+---
+interface Props {
+	label: string;
+	class?: string;
+	style?: string;
+}
+
+const { label, class: className, style } = Astro.props;
+---
+
+<span class:list={['category-badge', className]} style={style}>
+	<span class="category-badge-label">{label}</span>
+</span>
+
+<style>
+	.category-badge {
+		display: inline-flex;
+		align-items: center;
+		width: fit-content;
+		min-height: 2.25em;
+		padding-top: 0em;
+		padding-left: 1.05em;
+		padding-right: 1.05em;
+		padding-bottom: 0.225em;
+		border-radius: 999px;
+		background: color-mix(in srgb, var(--text-secondary) 22%, transparent);
+		color: var(--text-secondary);
+		font-size: var(--category-badge-font-size, var(--text-md));
+		font-weight: 700;
+		line-height: 1;
+	}
+
+	.category-badge-label {
+		transform: translateY(-0.04em);
+	}
+</style>
