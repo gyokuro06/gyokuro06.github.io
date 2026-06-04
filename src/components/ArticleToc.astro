@@ -1,0 +1,74 @@
+---
+interface TocItem {
+	id: string;
+	title: string;
+}
+
+interface Props {
+	items: TocItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<aside class="article-toc" aria-labelledby="toc-title">
+	<h2 id="toc-title">On this page ○</h2>
+	<nav aria-label="記事内目次">
+		<ul>
+			{items.map((item) => <li><a href={`#${item.id}`}>・{item.title}</a></li>)}
+		</ul>
+	</nav>
+</aside>
+
+<style>
+	.article-toc {
+		position: sticky;
+		top: 2rem;
+		align-self: start;
+		padding-block-start: 0.4rem;
+		color: var(--text-primary);
+	}
+
+	h2 {
+		margin: 0 0 1rem;
+		font-size: var(--text-lg);
+		font-weight: 700;
+		letter-spacing: 0;
+		line-height: 1.4;
+	}
+
+	ul {
+		display: grid;
+		gap: 0.65rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	a {
+		display: inline-block;
+		color: var(--text-primary);
+		font-size: var(--text-md);
+		font-weight: 700;
+		text-decoration: none;
+		line-height: 1.6;
+	}
+
+	a:hover {
+		color: var(--text-secondary);
+		text-decoration: underline;
+	}
+
+	@media (max-width: 1000px) {
+		.article-toc {
+			position: static;
+			padding: 1rem 0 0;
+		}
+
+		ul {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.4rem 1rem;
+		}
+	}
+</style>

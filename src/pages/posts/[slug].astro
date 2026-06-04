@@ -1,0 +1,77 @@
+---
+import ArticleBody from '../../components/ArticleBody.astro';
+import ArticleHeader from '../../components/ArticleHeader.astro';
+import ArticleToc from '../../components/ArticleToc.astro';
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+	post?: CollectionEntry<'posts'>;
+}
+
+export async function getStaticPaths() {
+	const posts = await getCollection('posts');
+
+	return posts.map((post) => ({
+		params: { slug: post.id },
+		props: { post },
+	}));
+}
+
+const { post: staticPathPost } = Astro.props;
+const slug = Astro.params.slug;
+const post =
+	staticPathPost ??
+	(await getCollection('posts')).find((entry) => entry.id === slug);
+
+if (!post) {
+	return Astro.redirect('/404');
+}
+
+const { Content, headings } = await render(post);
+const displayDate = new Intl.DateTimeFormat('ja-JP', {
+	year: 'numeric',
+	month: '2-digit',
+	day: '2-digit',
+})
+	.format(post.data.date)
+	.replaceAll('/', '.');
+const article = {
+	...post.data,
+	date: displayDate,
+};
+const tocItems = headings
+	.filter((heading) => heading.depth === 2)
+	.map((heading) => ({
+		id: heading.slug,
+		title: heading.text,
+	}));
+---
+
+<Layout title={`${post.data.title.replace('\n', ' ')} | sleepy-turtle`}>
+	<ArticleHeader article={article} />
+
+	<div class="article-layout">
+		<ArticleBody>
+			<Content />
+		</ArticleBody>
+		<ArticleToc items={tocItems} />
+	</div>
+</Layout>
+
+<style>
+	.article-layout {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(11rem, 14rem);
+		align-items: start;
+		gap: clamp(2rem, 4vw, 4rem);
+		margin-block-end: 5rem;
+	}
+
+	@media (max-width: 1000px) {
+		.article-layout {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

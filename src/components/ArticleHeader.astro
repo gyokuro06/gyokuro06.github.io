@@ -1,0 +1,145 @@
+---
+import Calendar from '@lucide/astro/icons/calendar';
+import Clock3 from '@lucide/astro/icons/clock-3';
+
+interface ArticleMeta {
+	category: string;
+	title: string;
+	date: string;
+	readingTime: string;
+	tags: string[];
+	lead: string[];
+}
+
+interface Props {
+	article: ArticleMeta;
+}
+
+const { article } = Astro.props;
+---
+
+<header class="article-header">
+	<p class="article-category">{article.category}</p>
+	<h1>{article.title}</h1>
+
+	<div class="article-meta" aria-label="記事情報">
+		<span class="article-meta-item">
+			<Calendar class="article-meta-icon" aria-hidden="true" />
+			{article.date}
+		</span>
+		<span class="article-meta-item">
+			<Clock3 class="article-meta-icon" aria-hidden="true" />
+			{article.readingTime}
+		</span>
+		<span class="article-meta-item">{article.tags.map((tag) => `#${tag}`).join('　')}</span>
+	</div>
+
+	<div class="article-lead">
+		{article.lead.map((line) => <p>{line}</p>)}
+	</div>
+</header>
+
+<style>
+	.article-header {
+		max-width: 44rem;
+		margin-block-end: clamp(3rem, 7vw, 5rem);
+	}
+
+	.article-category {
+		width: fit-content;
+		min-height: 2.25rem;
+		margin: 0 0 2rem;
+		padding: 0.3rem 1.05rem 0.15rem;
+		border-radius: 999px;
+		background: color-mix(in srgb, var(--text-secondary) 22%, transparent);
+		color: var(--text-secondary);
+		font-weight: 700;
+		line-height: 1.5;
+	}
+
+	h1 {
+		margin: 0 0 1.75rem;
+		white-space: pre-line;
+		color: var(--text-primary);
+		font-family: var(--font-article-title);
+		font-size: clamp(var(--text-3xl), 5vw, var(--text-4xl));
+		font-weight: 400;
+		letter-spacing: 0;
+		line-height: 1.4;
+	}
+
+	.article-meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem 1.3rem;
+		margin-block-end: 1.75rem;
+		color: var(--color-primitive-primary-50);
+		font-family: var(--font-meta);
+		font-size: var(--text-md);
+		line-height: 1.5;
+	}
+
+	.article-meta-item {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		line-height: 1.5;
+	}
+
+	.article-meta-icon {
+		flex: 0 0 auto;
+		width: 1em;
+		height: 1em;
+		stroke-width: 1.8;
+		transform: translateY(0.08em);
+	}
+
+	.article-meta-item + .article-meta-item {
+		position: relative;
+		padding-inline-start: 1.3rem;
+	}
+
+	.article-meta-item + .article-meta-item::before {
+		position: absolute;
+		inset-block: 0.3rem;
+		inset-inline-start: 0;
+		width: 1px;
+		background: color-mix(in srgb, var(--border) 28%, transparent);
+		content: '';
+	}
+
+	.article-lead {
+		padding-inline-start: 1.25rem;
+		border-inline-start: 2px solid var(--accent-primary);
+		color: var(--text-secondary);
+		font-size: var(--text-lg);
+		font-weight: 700;
+		line-height: 1.9;
+	}
+
+	.article-lead p {
+		margin: 0;
+	}
+
+	@media (max-width: 720px) {
+		.article-header {
+			margin-block-end: 2.5rem;
+		}
+
+		h1 {
+			font-size: clamp(var(--text-2xl), 12vw, var(--text-3xl));
+		}
+
+		.article-meta {
+			display: grid;
+		}
+
+		.article-meta-item + .article-meta-item {
+			padding-inline-start: 0;
+		}
+
+		.article-meta-item + .article-meta-item::before {
+			content: none;
+		}
+	}
+</style>
