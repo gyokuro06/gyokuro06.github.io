@@ -2,6 +2,7 @@
 interface TocItem {
 	id: string;
 	title: string;
+	depth: number;
 }
 
 interface Props {
@@ -15,7 +16,13 @@ const { items } = Astro.props;
 	<h2 id="toc-title">On this page ○</h2>
 	<nav aria-label="記事内目次">
 		<ul>
-			{items.map((item) => <li><a href={`#${item.id}`}>・{item.title}</a></li>)}
+			{
+				items.map((item) => (
+					<li style={`--toc-depth: ${Math.max(item.depth - 2, 0)}`}>
+						<a href={`#${item.id}`}>・{item.title}</a>
+					</li>
+				))
+			}
 		</ul>
 	</nav>
 </aside>
@@ -47,6 +54,7 @@ const { items } = Astro.props;
 
 	a {
 		display: inline-block;
+		padding-inline-start: calc(var(--toc-depth) * 1rem);
 		color: var(--text-primary);
 		font-size: var(--text-md);
 		font-weight: 700;

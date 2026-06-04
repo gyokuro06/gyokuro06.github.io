@@ -41,12 +41,11 @@ const article = {
 	...post.data,
 	date: displayDate,
 };
-const tocItems = headings
-	.filter((heading) => heading.depth === 2)
-	.map((heading) => ({
-		id: heading.slug,
-		title: heading.text,
-	}));
+const tocItems = headings.map((heading) => ({
+	id: heading.slug,
+	title: heading.text,
+	depth: heading.depth,
+}));
 ---
 
 <Layout title={`${post.data.title.replace('\n', ' ')} | sleepy-turtle`}>

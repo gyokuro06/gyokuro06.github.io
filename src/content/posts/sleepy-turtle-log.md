@@ -27,3 +27,23 @@ lead:
 完璧な記事にしようとしなくても、短いメモとして残しておくだけで、次に同じ問題に出会ったときの助けになります。
 
 誰かに見せるためではなく、自分の思考を少しずつ整えるために、今日も小さなメモを残していきます。
+
+### h3
+```ts
+const a = a;
+```
+
+> [!NOTE]
+> note callout
+
+> [!TIP]
+> tip callout
+
+> [!IMPORTANT]
+> important callout
+
+> [!WARNING]
+> warning callout
+
+> [!CAUTION]
+> caution callout
