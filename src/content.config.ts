@@ -8,7 +8,7 @@ const posts = defineCollection({
 		title: z.string(),
 		category: z.string(),
 		date: z.coerce.date(),
-		readingTime: z.string(),
+		readingMinutes: z.number().int().positive(),
 		tags: z.array(z.string()),
 		lead: z.array(z.string()),
 	}),

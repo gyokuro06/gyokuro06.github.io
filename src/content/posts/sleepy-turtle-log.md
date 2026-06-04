@@ -4,7 +4,7 @@ title: |-
   コードを書く
 category: 雑記
 date: 2025-04-18
-readingTime: だいたい6分くらい
+readingMinutes: 6
 tags:
   - 設計
   - 内省
