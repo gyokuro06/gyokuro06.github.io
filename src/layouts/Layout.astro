@@ -41,10 +41,6 @@ const {
 		background: var(--background);
 	}
 
-	* {
-		box-sizing: border-box;
-	}
-
 	html,
 	body {
 		margin: 0;
@@ -80,6 +76,10 @@ const {
 	}
 
 	@media (max-width: 720px) {
+		.site-header-area {
+			margin-block-end: 1rem;
+		}
+
 		.site-main,
 		.site-footer {
 			width: min(100% - 2rem, 1500px);

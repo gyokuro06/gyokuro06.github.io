@@ -14,11 +14,11 @@ interface Props {
 const { items } = Astro.props;
 ---
 
-<aside class="article-toc" aria-labelledby="toc-title">
-	<h2 id="toc-title">
-		On this page
+<details class="article-toc" aria-labelledby="toc-title" data-toc open>
+	<summary class="toc-toggle">
+		<span id="toc-title" class="toc-title">On this page</span>
 		<Leaf class="toc-title-icon" aria-hidden="true" />
-	</h2>
+	</summary>
 	<nav aria-label="記事内目次">
 		<ul>
 			{
@@ -30,7 +30,7 @@ const { items } = Astro.props;
 			}
 		</ul>
 	</nav>
-</aside>
+</details>
 
 <style>
 	.article-toc {
@@ -62,17 +62,29 @@ const { items } = Astro.props;
 		transform: rotate(-3deg);
 	}
 
-	h2 {
+	.toc-toggle {
 		display: inline-flex;
 		align-items: center;
 		gap: 0.55rem;
+		width: 100%;
 		margin: 0 0 1.2rem;
 		color: var(--text-secondary);
+		cursor: pointer;
 		font-family: var(--font-quote-text);
 		font-size: var(--text-md);
 		font-weight: 700;
 		letter-spacing: 0;
 		line-height: 1.4;
+		list-style: none;
+	}
+
+	.toc-toggle::-webkit-details-marker {
+		display: none;
+	}
+
+	.toc-title {
+		flex: 1 1 auto;
+		min-width: 0;
 	}
 
 	.toc-title-icon {
@@ -148,9 +160,80 @@ const { items } = Astro.props;
 			gap: 0.4rem 1rem;
 		}
 	}
+
+	@media (max-width: 720px) {
+		.article-toc {
+			position: fixed;
+			z-index: 20;
+			inset-block-start: calc(env(safe-area-inset-top, 0px) + 1rem);
+			inset-inline-end: 1rem;
+			width: 3rem;
+			height: 3rem;
+			overflow: hidden;
+			padding: 0;
+			border-radius: 999px;
+			box-shadow:
+				0 0.65rem 1.4rem color-mix(in srgb, var(--border) 24%, transparent),
+				inset 0 0 1.35rem color-mix(in srgb, #ffffff 34%, transparent);
+		}
+
+		.article-toc[open] {
+			inset-inline: 1rem;
+			width: auto;
+			height: auto;
+			max-height: min(65vh, 28rem);
+			overflow: auto;
+			padding: 0.85rem 1rem;
+			border-radius: 1rem;
+		}
+
+		.article-toc::before {
+			content: none;
+		}
+
+		.toc-toggle {
+			justify-content: center;
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			font-size: var(--text-md);
+		}
+
+		.article-toc[open] .toc-toggle {
+			justify-content: flex-start;
+			height: auto;
+			margin-block-end: 0.75rem;
+		}
+
+		.article-toc:not([open]) .toc-title {
+			position: absolute;
+			width: 1px;
+			height: 1px;
+			overflow: hidden;
+			clip-path: inset(50%);
+			white-space: nowrap;
+		}
+
+		.toc-title-icon {
+			flex: 0 0 auto;
+			width: 1.2rem;
+			height: 1.2rem;
+		}
+
+		ul {
+			display: grid;
+			gap: 0.45rem;
+		}
+
+		a {
+			font-size: var(--text-sm);
+			line-height: 1.65;
+		}
+	}
 </style>
 
 <script>
+	const toc = document.querySelector<HTMLDetailsElement>('[data-toc]');
 	const tocLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-toc-link]'));
 	const tocTargets = tocLinks
 		.map((link) => {
@@ -173,4 +256,22 @@ const { items } = Astro.props;
 	setActiveLink();
 	window.addEventListener('scroll', setActiveLink, { passive: true });
 	window.addEventListener('resize', setActiveLink);
+
+	if (toc) {
+		const mobileTocQuery = window.matchMedia('(max-width: 720px)');
+		const syncTocOpenState = () => {
+			toc.open = !mobileTocQuery.matches;
+		};
+
+		syncTocOpenState();
+		mobileTocQuery.addEventListener('change', syncTocOpenState);
+
+		for (const link of tocLinks) {
+			link.addEventListener('click', () => {
+				if (mobileTocQuery.matches) {
+					toc.open = false;
+				}
+			});
+		}
+	}
 </script>

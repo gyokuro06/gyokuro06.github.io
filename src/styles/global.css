@@ -94,3 +94,23 @@
 	--text-3xl: 3rem; /* 48px: page headings */
 	--text-4xl: 4rem; /* 64px: large hero headings */
 }
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+@media (max-width: 720px) {
+	:root {
+		/* Mobile type scale: keep token meanings, tune the physical size for narrow screens. */
+		--text-xs: 0.6875rem; /* 11px: dense meta text and compact labels */
+		--text-sm: 0.75rem; /* 12px: secondary UI text */
+		--text-md: 0.875rem; /* 14px: default mobile body text */
+		--text-lg: 1rem; /* 16px: emphasized body copy */
+		--text-xl: 1.25rem; /* 20px: section headings and card titles */
+		--text-2xl: 1.5rem; /* 24px: featured titles */
+		--text-3xl: 2rem; /* 32px: page headings */
+		--text-4xl: 2.6rem; /* 42px: large hero headings */
+	}
+}

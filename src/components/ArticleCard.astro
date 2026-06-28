@@ -53,6 +53,9 @@ const categoryBadgeStyle = `--category-badge-font-size: ${
 	.article-card {
 		position: relative;
 		display: flex;
+		width: 100%;
+		min-width: 0;
+		max-width: 100%;
 		min-height: 17.5rem;
 		flex-direction: column;
 		overflow: hidden;
@@ -72,6 +75,7 @@ const categoryBadgeStyle = `--category-badge-font-size: ${
 		box-shadow: 0.35rem 0.55rem 0.4rem color-mix(in srgb, var(--border) 32%, transparent);
 		color: var(--text-primary);
 		text-decoration: none;
+		overflow-wrap: anywhere;
 	}
 
 	.article-card:hover {
@@ -112,7 +116,7 @@ const categoryBadgeStyle = `--category-badge-font-size: ${
 		margin: 0;
 		max-width: 28rem;
 		font-family: var(--font-article-title);
-		font-size: clamp(var(--text-lg), 1.25vw, var(--text-xl));
+		font-size: var(--text-xl);
 		font-weight: 700;
 		letter-spacing: 0;
 		line-height: 1.35;
@@ -129,7 +133,7 @@ const categoryBadgeStyle = `--category-badge-font-size: ${
 
 	.featured h3 {
 		max-width: 34rem;
-		font-size: clamp(var(--text-xl), 2.2vw, var(--text-2xl));
+		font-size: var(--text-2xl);
 		line-height: 1.4;
 	}
 
@@ -245,23 +249,42 @@ const categoryBadgeStyle = `--category-badge-font-size: ${
 		.article-card.featured {
 			min-height: 0;
 			height: auto;
-			padding: 1.4rem 1.2rem 1.2rem 3.55rem;
+			padding: 1.25rem 1rem 1.1rem 2.75rem;
 			border-radius: 1.5rem 1.5rem 1rem 1rem;
+			background:
+				linear-gradient(90deg, transparent 0 2rem, #e7a24c 2rem calc(2rem + 1px), transparent calc(2rem + 1px)),
+				repeating-linear-gradient(
+					to bottom,
+					transparent 0,
+					transparent 2.35rem,
+					color-mix(in srgb, var(--border) 18%, transparent) 2.35rem,
+					color-mix(in srgb, var(--border) 18%, transparent) calc(2.35rem + 1px)
+				),
+				var(--surface);
 			box-shadow: 0.35rem 0.55rem 0.4rem color-mix(in srgb, var(--border) 32%, transparent);
 		}
 
 		.featured p {
 			flex: none;
-			margin-block-start: 2rem;
+			margin-block-start: 1.25rem;
 			max-width: none;
+			font-size: var(--text-md);
+			line-height: 1.85;
 		}
 
 		.featured .article-footer {
-			padding-block-start: 0;
+			padding-block-start: 1rem;
+			font-size: var(--text-sm);
 		}
 
 		.featured h3 {
-			font-size: clamp(var(--text-xl), 7vw, var(--text-2xl));
+			font-size: var(--text-2xl);
+			line-height: 1.35;
+		}
+
+		.featured .article-meta {
+			margin-block-start: 0.9rem;
+			font-size: var(--text-sm);
 		}
 	}
 </style>

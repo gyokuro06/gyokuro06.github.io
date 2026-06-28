@@ -75,7 +75,7 @@ const [featuredArticle, ...otherArticles] = articles;
 	h2 {
 		margin: 0;
 		color: var(--text-primary);
-		font-size: clamp(var(--text-lg), 2vw, var(--text-2xl));
+		font-size: var(--text-2xl);
 		font-family: var(--font-heading-1);
 		font-weight: 600;
 		letter-spacing: 0;
@@ -86,6 +86,8 @@ const [featuredArticle, ...otherArticles] = articles;
 		--article-card-row-min: 17.5rem;
 		--article-card-gap: 1.75rem;
 		display: grid;
+		width: 100%;
+		min-width: 0;
 		grid-template-columns: minmax(22rem, 1.05fr) minmax(32rem, 1.35fr);
 		align-items: stretch;
 		column-gap: clamp(2rem, 4vw, 3.25rem);
@@ -94,6 +96,7 @@ const [featuredArticle, ...otherArticles] = articles;
 
 	.featured-slot {
 		display: flex;
+		min-width: 0;
 		min-height: 0;
 	}
 
@@ -105,6 +108,7 @@ const [featuredArticle, ...otherArticles] = articles;
 
 	.side-list {
 		display: grid;
+		min-width: 0;
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 		grid-template-rows: repeat(2, minmax(var(--article-card-row-min), auto));
 		gap: var(--article-card-gap);
@@ -139,7 +143,7 @@ const [featuredArticle, ...otherArticles] = articles;
 
 		.featured-slot :global(.article-card.featured) {
 			flex: none;
-			width: auto;
+			width: 100%;
 		}
 
 		.side-list {
@@ -149,16 +153,23 @@ const [featuredArticle, ...otherArticles] = articles;
 	}
 
 	@media (max-width: 720px) {
+		.main-section {
+			padding-block: 0.75rem 3rem;
+		}
+
 		.main-section::before {
 			inset-inline-start: 0.25rem;
 		}
 
 		.section-heading {
 			gap: 1rem;
+			margin-block-end: 1.25rem;
+			padding-inline-start: 1.35rem;
 		}
 
 		.article-grid {
-			padding-inline-start: 1.25rem;
+			--article-card-gap: 1.15rem;
+			padding-inline-start: 1rem;
 		}
 
 		.side-list {

@@ -89,7 +89,7 @@ const hero = {
 		white-space: pre-line;
 		color: var(--text-primary);
 		font-family: var(--font-article-title);
-		font-size: clamp(var(--text-2xl), calc(var(--text-2xl) + 5vw), var(--text-4xl));
+		font-size: var(--text-4xl);
 		font-weight: 400;
 		letter-spacing: 0;
 		line-height: 1.35;
@@ -161,17 +161,25 @@ const hero = {
 	@media (max-width: 720px) {
 		.hero-section {
 			grid-template-columns: 1fr;
-			row-gap: 1.75rem;
-			padding-block-start: 2rem;
+			row-gap: 1.25rem;
+			padding-block-start: 0;
 		}
 
 		.hero-visual {
-			justify-self: center;
-			max-width: min(70vw, 14rem);
+			display: none;
+		}
+
+		h1 {
+			margin-bottom: 1.15rem;
+			font-size: var(--text-4xl);
+			line-height: 1.28;
 		}
 
 		.hero-meta {
 			display: grid;
+			gap: 0.5rem;
+			margin-bottom: 1.15rem;
+			font-size: var(--text-sm);
 		}
 
 		.hero-meta-item + .hero-meta-item {
@@ -180,6 +188,12 @@ const hero = {
 
 		.hero-meta-item + .hero-meta-item::before {
 			content: none;
+		}
+
+		.hero-note {
+			padding-inline-start: 1rem;
+			font-size: var(--text-sm);
+			line-height: 1.9;
 		}
 	}
 </style>
