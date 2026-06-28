@@ -29,9 +29,13 @@ const displayExcerpt = featured
 const categoryBadgeStyle = `--category-badge-font-size: ${
 	featured ? 'var(--text-md)' : 'var(--text-xs)'
 }`;
+const baseUrl = import.meta.env.BASE_URL.endsWith("/")
+	? import.meta.env.BASE_URL
+	: `${import.meta.env.BASE_URL}/`;
+const articleHref = `${baseUrl}${article.href.replace(/^\/+/, '')}`;
 ---
 
-<a class:list={['article-card', { featured }]} href={article.href}>
+<a class:list={['article-card', { featured }]} href={articleHref}>
 	<div class="article-head">
 		<div class="article-category-wrap">
 			<CategoryBadge label={article.category} style={categoryBadgeStyle} />
