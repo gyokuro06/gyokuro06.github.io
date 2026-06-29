@@ -1,9 +1,7 @@
 ---
 import { Image } from 'astro:assets';
-import Calendar from '@lucide/astro/icons/calendar';
-import Clock3 from '@lucide/astro/icons/clock-3';
 import topMainVisual from '../assets/top_mmain_visual.png';
-import CategoryBadge from './CategoryBadge.astro';
+import PageIntro from './PageIntro.astro';
 
 const hero = {
 	label: 'About',
@@ -13,191 +11,30 @@ const hero = {
 	tags: ['技術', '内省', '成長', 'sleepy-turtle'],
 	body: ['誰かに見せるためというより', '自分の学びとアウトプット習慣をつけるために', '小さな発見と、考えごとの跡を静かに残していく'],
 };
+
+const meta = [
+	{ icon: 'calendar' as const, text: hero.date },
+	{ icon: 'clock' as const, text: hero.cadence },
+	{ icon: 'none' as const, text: hero.tags.map((tag) => `#${tag}`).join('　') },
+];
 ---
 
-<section class="hero-section" aria-labelledby="hero-title">
-	<div class="hero-content">
-		<div class="hero-label-wrap">
-			<CategoryBadge
-				label={hero.label}
-				style="--category-badge-font-size: var(--text-md)"
-			/>
-		</div>
-		<h1 id="hero-title">{hero.title}</h1>
-
-		<div class="hero-meta" aria-label="ブログの基本情報">
-			<span class="hero-meta-item">
-				<Calendar class="hero-meta-icon" aria-hidden="true" />
-				{hero.date}
-			</span>
-			<span class="hero-meta-item">
-				<Clock3 class="hero-meta-icon" aria-hidden="true" />
-				{hero.cadence}
-			</span>
-			<span class="hero-meta-item">{hero.tags.map((tag) => `#${tag}`).join('　')}</span>
-		</div>
-
-		<div class="hero-note">
-			{hero.body.map((line) => <p>{line}</p>)}
-		</div>
-	</div>
-
-	<div class="hero-visual" aria-hidden="true">
-		<Image
-			src={topMainVisual}
-			alt=""
-			width={976}
-			height={976}
-			loading="eager"
-			decoding="async"
-		/>
-	</div>
-</section>
-
-<style>
-	.hero-section {
-		display: grid;
-		grid-template-columns: minmax(0, 1fr) minmax(12rem, 24rem);
-		align-items: center;
-		column-gap: clamp(1.5rem, 3.5vw, 3rem);
-	}
-
-	.hero-content {
-		max-width: 44rem;
-		min-width: 0;
-	}
-
-	.hero-visual {
-		justify-self: end;
-		width: 100%;
-		max-width: 24rem;
-	}
-
-	.hero-visual :global(img) {
-		display: block;
-		width: 100%;
-		height: auto;
-	}
-
-	.hero-label-wrap {
-		margin: 0 0 1.25rem;
-	}
-
-	h1 {
-		margin: 0 0 1.5rem;
-		white-space: pre-line;
-		color: var(--text-primary);
-		font-family: var(--font-article-title);
-		font-size: var(--text-4xl);
-		font-weight: 400;
-		letter-spacing: 0;
-		line-height: 1.35;
-	}
-
-	.hero-meta {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.75rem 1.3rem;
-		color: var(--color-primitive-primary-50);
-		font-size: var(--text-md);
-		font-family: var(--font-meta);
-		line-height: 1.5;
-		margin: 0 0 1.5rem;
-	}
-
-	.hero-meta-item {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.35rem;
-		line-height: 1.5;
-	}
-
-	.hero-meta-icon {
-		flex: 0 0 auto;
-		width: 1em;
-		height: 1em;
-		stroke-width: 1.8;
-		transform: translateY(0.08em);
-	}
-
-	.hero-meta-item + .hero-meta-item {
-		position: relative;
-		padding-inline-start: 1.3rem;
-	}
-
-	.hero-meta-item + .hero-meta-item::before {
-		position: absolute;
-		inset-block: 0.3rem;
-		inset-inline-start: 0;
-		width: 1px;
-		background: color-mix(in srgb, var(--border) 28%, transparent);
-		content: '';
-	}
-
-	.hero-note {
-		padding-inline-start: 1.25rem;
-		border-inline-start: 2px solid var(--accent-primary);
-		color: var(--text-secondary);
-		font-size: var(--text-md);
-		font-weight: 700;
-		line-height: 1.9;
-	}
-
-	.hero-note p {
-		margin: 0;
-	}
-
-	@media (max-width: 900px) {
-		.hero-section {
-			grid-template-columns: minmax(0, 1fr) minmax(9rem, 16rem);
-			column-gap: 1.25rem;
-		}
-
-		.hero-visual {
-			max-width: 16rem;
-		}
-	}
-
-	@media (max-width: 720px) {
-		.hero-section {
-			grid-template-columns: 1fr;
-			row-gap: 1.25rem;
-			padding-block-start: 0;
-		}
-
-		.hero-visual {
-			display: none;
-		}
-
-		.hero-label-wrap {
-			margin-block-end: 1rem;
-		}
-
-		h1 {
-			margin-block-end: 1rem;
-			font-size: var(--text-3xl);
-			line-height: 1.28;
-		}
-
-		.hero-meta {
-			display: grid;
-			gap: 0.5rem;
-			margin-block-end: 1rem;
-			font-size: var(--text-sm);
-		}
-
-		.hero-meta-item + .hero-meta-item {
-			padding-inline-start: 0;
-		}
-
-		.hero-meta-item + .hero-meta-item::before {
-			content: none;
-		}
-
-		.hero-note {
-			padding-inline-start: 1rem;
-			font-size: var(--text-sm);
-			line-height: 1.9;
-		}
-	}
-</style>
+<PageIntro
+	as="section"
+	badgeLabel={hero.label}
+	title={hero.title}
+	titleId="hero-title"
+	metaLabel="ブログの基本情報"
+	meta={meta}
+	lead={hero.body}
+>
+	<Image
+		slot="visual"
+		src={topMainVisual}
+		alt=""
+		width={976}
+		height={976}
+		loading="eager"
+		decoding="async"
+	/>
+</PageIntro>

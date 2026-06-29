@@ -1,0 +1,228 @@
+---
+import Calendar from '@lucide/astro/icons/calendar';
+import Clock3 from '@lucide/astro/icons/clock-3';
+import CategoryBadge from './CategoryBadge.astro';
+
+interface IntroMeta {
+	icon: 'calendar' | 'clock' | 'none';
+	text: string;
+}
+
+interface Props {
+	badgeLabel: string;
+	title: string;
+	metaLabel: string;
+	meta: IntroMeta[];
+	lead: string[];
+	titleId?: string;
+	as?: 'header' | 'section';
+	style?: string;
+}
+
+const {
+	badgeLabel,
+	title,
+	metaLabel,
+	meta,
+	lead,
+	titleId,
+	as = 'header',
+	style,
+} = Astro.props;
+
+const Container = as;
+const hasVisual = Astro.slots.has('visual');
+---
+
+<Container class:list={['page-intro', { 'has-visual': hasVisual }]} aria-labelledby={titleId} style={style}>
+	<div class="page-intro-content">
+		<div class="page-intro-badge">
+			<CategoryBadge
+				label={badgeLabel}
+				style="--category-badge-font-size: var(--text-md)"
+			/>
+		</div>
+		<h1 id={titleId}>{title}</h1>
+
+		<div class="page-intro-meta" aria-label={metaLabel}>
+			{
+				meta.map((item) => (
+					<span class="page-intro-meta-item">
+						{item.icon === 'calendar' && <Calendar class="page-intro-meta-icon" aria-hidden="true" />}
+						{item.icon === 'clock' && <Clock3 class="page-intro-meta-icon" aria-hidden="true" />}
+						{item.text}
+					</span>
+				))
+			}
+		</div>
+
+		<div class="page-intro-lead">
+			{lead.map((line) => <p>{line}</p>)}
+		</div>
+	</div>
+
+	{
+		hasVisual && (
+			<div class="page-intro-visual" aria-hidden="true">
+				<slot name="visual" />
+			</div>
+		)
+	}
+</Container>
+
+<style>
+	.page-intro {
+		display: block;
+		max-width: 44rem;
+		margin-block-end: var(--page-intro-margin-block-end, 0);
+	}
+
+	.page-intro.has-visual {
+		display: grid;
+		max-width: none;
+		grid-template-columns: minmax(0, 1fr) minmax(12rem, 24rem);
+		align-items: center;
+		column-gap: clamp(1.5rem, 3.5vw, 3rem);
+	}
+
+	.page-intro-content {
+		max-width: 44rem;
+		min-width: 0;
+	}
+
+	.page-intro-visual {
+		justify-self: end;
+		width: 100%;
+		max-width: 24rem;
+	}
+
+	.page-intro-visual :global(img) {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+
+	.page-intro-badge {
+		margin: 0 0 1.25rem;
+	}
+
+	h1 {
+		margin: 0 0 1.5rem;
+		white-space: pre-line;
+		color: var(--text-primary);
+		font-family: var(--font-article-title);
+		font-size: var(--text-4xl);
+		font-weight: 400;
+		letter-spacing: 0;
+		line-height: 1.35;
+	}
+
+	.page-intro-meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem 1.3rem;
+		margin: 0 0 1.5rem;
+		color: var(--color-primitive-primary-50);
+		font-family: var(--font-meta);
+		font-size: var(--text-md);
+		line-height: 1.5;
+	}
+
+	.page-intro-meta-item {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		line-height: 1.5;
+	}
+
+	.page-intro-meta-icon {
+		flex: 0 0 auto;
+		width: 1em;
+		height: 1em;
+		stroke-width: 1.8;
+		transform: translateY(0.08em);
+	}
+
+	.page-intro-meta-item + .page-intro-meta-item {
+		position: relative;
+		padding-inline-start: 1.3rem;
+	}
+
+	.page-intro-meta-item + .page-intro-meta-item::before {
+		position: absolute;
+		inset-block: 0.3rem;
+		inset-inline-start: 0;
+		width: 1px;
+		background: color-mix(in srgb, var(--border) 28%, transparent);
+		content: '';
+	}
+
+	.page-intro-lead {
+		padding-inline-start: 1.25rem;
+		border-inline-start: 2px solid var(--accent-primary);
+		color: var(--text-secondary);
+		font-size: var(--text-md);
+		font-weight: 700;
+		line-height: 1.9;
+	}
+
+	.page-intro-lead p {
+		margin: 0;
+	}
+
+	@media (max-width: 900px) {
+		.page-intro.has-visual {
+			grid-template-columns: minmax(0, 1fr) minmax(9rem, 16rem);
+			column-gap: 1.25rem;
+		}
+
+		.page-intro-visual {
+			max-width: 16rem;
+		}
+	}
+
+	@media (max-width: 720px) {
+		.page-intro,
+		.page-intro.has-visual {
+			display: grid;
+			grid-template-columns: 1fr;
+			row-gap: 1.25rem;
+			margin-block-end: var(--page-intro-mobile-margin-block-end, var(--page-intro-margin-block-end, 0));
+		}
+
+		.page-intro-visual {
+			display: none;
+		}
+
+		.page-intro-badge {
+			margin-block-end: 1rem;
+		}
+
+		h1 {
+			margin-block-end: 1rem;
+			font-size: var(--text-3xl);
+			line-height: 1.28;
+		}
+
+		.page-intro-meta {
+			display: grid;
+			gap: 0.5rem;
+			margin-block-end: 1rem;
+			font-size: var(--text-sm);
+		}
+
+		.page-intro-meta-item + .page-intro-meta-item {
+			padding-inline-start: 0;
+		}
+
+		.page-intro-meta-item + .page-intro-meta-item::before {
+			content: none;
+		}
+
+		.page-intro-lead {
+			padding-inline-start: 1rem;
+			font-size: var(--text-sm);
+			line-height: 1.9;
+		}
+	}
+</style>
