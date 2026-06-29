@@ -22,6 +22,7 @@ jobs:
         # withastro/action@v6
         uses: withastro/action@b7d53628f8b666036b0238aadb0b984a2a489f26
         with:
+          path: ./blog
           package-manager: pnpm@10.6.1
 
   deploy:
