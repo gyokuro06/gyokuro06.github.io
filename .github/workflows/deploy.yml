@@ -35,10 +35,16 @@ jobs:
         run: pnpm run build
         working-directory: ./blog
 
+      - name: Prepare deploy artifact
+        run: |
+          mkdir -p deploy/blog
+          cp -r ./blog/dist/. deploy/blog/
+          echo '<meta http-equiv="refresh" content="0; url=/blog/">' > deploy/index.html
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./blog/dist
+          path: ./deploy
 
   deploy:
     needs: build
