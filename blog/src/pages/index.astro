@@ -2,19 +2,21 @@
 import HeroSection from '../components/HeroSection.astro';
 import Layout from '../layouts/Layout.astro';
 import MainSection from '../components/MainSection.astro';
+import { getCollection } from 'astro:content';
+import { extractExcerpt, formatDate } from '../lib/posts';
 
-const articles = [
-	{
-		title: '怠惰なりに、ゆるく敷居低く書く場所',
-		category: '考え事',
-		date: '2025.04.18',
-		readingTime: 'だいたい6分くらい',
-		excerpt:
-			'夜の静けさのなかでコードを書いていると、昼間には気づかなかった小さな違和感や、見過ごしていた設計のほころびに気づくことがあります。',
-		tags: ['設計', '内省', 'TypeScript'],
-		href: '/posts/sleepy-turtle-log',
-	},
-];
+const posts = await getCollection('posts');
+const sortedPosts = posts.toSorted((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const articles = sortedPosts.map((post) => ({
+	title: post.data.title.replaceAll('\n', ' '),
+	category: post.data.category,
+	date: formatDate(post.data.date),
+	readingTime: `だいたい${post.data.readingMinutes}分くらい`,
+	excerpt: extractExcerpt(post.body ?? ''),
+	tags: post.data.tags,
+	href: `/posts/${post.id}`,
+}));
 ---
 
 <Layout title="sleepy-turtle">

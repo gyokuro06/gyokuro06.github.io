@@ -5,6 +5,7 @@ import ArticleToc from '../../components/ArticleToc.astro';
 import Layout from '../../layouts/Layout.astro';
 import { getCollection, render } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
+import { formatDate } from '../../lib/posts';
 
 interface Props {
 	post?: CollectionEntry<'posts'>;
@@ -30,13 +31,7 @@ if (!post) {
 }
 
 const { Content, headings } = await render(post);
-const displayDate = new Intl.DateTimeFormat('ja-JP', {
-	year: 'numeric',
-	month: '2-digit',
-	day: '2-digit',
-})
-	.format(post.data.date)
-	.replaceAll('/', '.');
+const displayDate = formatDate(post.data.date);
 const article = {
 	...post.data,
 	date: displayDate,
