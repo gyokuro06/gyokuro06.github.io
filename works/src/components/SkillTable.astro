@@ -111,7 +111,7 @@ import { getIcon, isLightBrand } from '../lib/icons';
 		align-items: center;
 		gap: 0.35em;
 		padding: 0.2em 0.55em;
-		border: 1px solid var(--c-line-strong);
+		border: none;
 		border-radius: var(--radius-sm);
 		background: var(--c-accent-soft);
 		font-size: var(--text-xs);
@@ -121,17 +121,12 @@ import { getIcon, isLightBrand } from '../lib/icons';
 		white-space: nowrap;
 	}
 
-	/* コンセプトカラーをはっきり出す（角バッジ形状は維持） */
 	.skill-tag[data-has-icon] {
-		border-color: color-mix(in srgb, var(--brand) 60%, transparent);
-		background: color-mix(in srgb, var(--brand) 28%, var(--c-mix-paper));
+		background: color-mix(in srgb, var(--brand) 22%, var(--c-mix-paper));
 		color: color-mix(in srgb, var(--brand) 78%, #000000);
-		box-shadow: inset 0.22em 0 0 var(--brand);
 	}
 
-	/* 黄・水色など明るいブランド: 背景を抑え、文字は墨固定 */
 	.skill-tag[data-has-icon][data-brand-light] {
-		border-color: color-mix(in srgb, var(--brand) 35%, var(--c-line-strong));
 		background: color-mix(in srgb, var(--brand) 12%, var(--c-mix-paper));
 		color: var(--c-text);
 	}
@@ -197,7 +192,6 @@ import { getIcon, isLightBrand } from '../lib/icons';
 		.skill-tag[data-has-icon] {
 			padding: 0.12em 0.45em;
 			background: var(--c-print-tag-bg);
-			border-color: var(--c-print-tag-border);
 			color: var(--c-print-tag-text);
 		}
 

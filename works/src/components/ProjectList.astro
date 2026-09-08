@@ -65,7 +65,7 @@ import { getIcon, isLightBrand } from '../lib/icons';
 	.section {
 		display: flex;
 		flex-direction: column;
-		gap: var(--space-6);
+		gap: var(--space-5);
 	}
 
 	.section-heading {
@@ -81,23 +81,27 @@ import { getIcon, isLightBrand } from '../lib/icons';
 		color: var(--c-text);
 	}
 
+	/*
+	 * 近接のメリハリ（線なし）:
+	 * 案件のあいだ >> ヘッダと本文 > 概要と課題 > ラベルと本文
+	 */
 	.project-list {
 		display: flex;
 		flex-direction: column;
-		gap: var(--space-10);
+		gap: var(--space-16);
 	}
 
 	.project-entry {
 		padding-block: 0;
 		display: flex;
 		flex-direction: column;
-		gap: var(--space-4);
+		gap: var(--space-3);
 	}
 
 	.project-header {
 		display: flex;
 		flex-direction: column;
-		gap: var(--space-3);
+		gap: var(--space-2);
 	}
 
 	.project-title {
@@ -136,7 +140,7 @@ import { getIcon, isLightBrand } from '../lib/icons';
 		align-items: center;
 		gap: 0.35em;
 		padding: 0.2em 0.5em;
-		border: 1px solid var(--c-line-strong);
+		border: none;
 		border-radius: var(--radius-sm);
 		background: var(--c-accent-soft);
 		font-size: var(--text-xs);
@@ -146,14 +150,11 @@ import { getIcon, isLightBrand } from '../lib/icons';
 	}
 
 	.project-tag[data-has-icon] {
-		border-color: color-mix(in srgb, var(--brand) 60%, transparent);
-		background: color-mix(in srgb, var(--brand) 28%, var(--c-mix-paper));
+		background: color-mix(in srgb, var(--brand) 22%, var(--c-mix-paper));
 		color: color-mix(in srgb, var(--brand) 78%, #000000);
-		box-shadow: inset 0.22em 0 0 var(--brand);
 	}
 
 	.project-tag[data-has-icon][data-brand-light] {
-		border-color: color-mix(in srgb, var(--brand) 35%, var(--c-line-strong));
 		background: color-mix(in srgb, var(--brand) 12%, var(--c-mix-paper));
 		color: var(--c-text);
 	}
@@ -176,13 +177,13 @@ import { getIcon, isLightBrand } from '../lib/icons';
 	.project-body {
 		display: flex;
 		flex-direction: column;
-		gap: var(--space-5);
+		gap: var(--space-4);
 	}
 
 	.project-block {
 		display: flex;
 		flex-direction: column;
-		gap: var(--space-2);
+		gap: var(--space-1);
 	}
 
 	/* スキルカテゴリと同系: 控えめラベル（本文とコントラスト） */
@@ -214,7 +215,7 @@ import { getIcon, isLightBrand } from '../lib/icons';
 		}
 
 		.project-list {
-			gap: var(--space-5);
+			gap: var(--space-8);
 		}
 
 		.project-entry {
@@ -245,7 +246,6 @@ import { getIcon, isLightBrand } from '../lib/icons';
 		.project-tag[data-has-icon] {
 			padding: 0.1em 0.4em;
 			background: var(--c-print-tag-bg);
-			border-color: var(--c-print-tag-border);
 			color: var(--c-print-tag-text);
 		}
 
@@ -255,6 +255,10 @@ import { getIcon, isLightBrand } from '../lib/icons';
 
 		.project-body {
 			gap: var(--space-2);
+		}
+
+		.project-block {
+			gap: 0.15rem;
 		}
 
 		.project-block-label {
