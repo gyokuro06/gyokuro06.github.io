@@ -2,6 +2,7 @@
 import Layout from '../components/Layout.astro';
 import Intro from '../components/Intro.astro';
 import SkillTable from '../components/SkillTable.astro';
+import CompanyTimeline from '../components/CompanyTimeline.astro';
 import ProjectList from '../components/ProjectList.astro';
 import { profile } from '../data/works';
 ---
@@ -11,6 +12,7 @@ import { profile } from '../data/works';
 		<Intro />
 		<main class="main">
 			<SkillTable />
+			<CompanyTimeline />
 			<ProjectList />
 		</main>
 		<footer class="footer no-print">
@@ -24,6 +26,7 @@ import { profile } from '../data/works';
 		min-height: 100vh;
 		display: flex;
 		flex-direction: column;
+		background: var(--c-bg);
 	}
 
 	.main {
@@ -33,12 +36,11 @@ import { profile } from '../data/works';
 		padding-block: clamp(var(--space-8), 4vw, var(--space-12)) clamp(var(--space-12), 6vw, var(--space-20));
 		display: flex;
 		flex-direction: column;
-		gap: clamp(var(--space-10), 4vw, var(--space-14));
+		gap: clamp(var(--space-12), 5vw, var(--space-16));
 	}
 
 	.footer {
-		border-block-start: 1px solid var(--c-line);
-		padding: var(--space-4) var(--space-8);
+		padding: var(--space-6) var(--space-8) var(--space-8);
 		text-align: center;
 		font-size: var(--text-xs);
 		color: var(--c-text-muted);
