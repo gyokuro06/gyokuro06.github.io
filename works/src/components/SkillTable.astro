@@ -20,7 +20,7 @@ import { getIcon } from '../lib/icons';
 								style={icon ? `--brand: #${icon.hex}` : undefined}
 								data-has-icon={icon ? '' : undefined}
 							>
-								{icon && (
+								{icon?.path && (
 									<svg
 										class="skill-icon"
 										viewBox="0 0 24 24"

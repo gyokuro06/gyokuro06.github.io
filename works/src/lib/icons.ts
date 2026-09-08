@@ -1,10 +1,10 @@
 import {
-	siKotlin, siTypescript, siJavascript, siPython, siGo, siRust, siClojure, siOpenjdk, siPhp,
+	siKotlin, siTypescript, siJavascript, siPython, siGo, siRust, siClojure, siOpenjdk, siPhp, siFsharp,
 	siSpringboot, siDotnet, siVuedotjs, siReact, siAngular, siNextdotjs, siLit, siLaravel, siFastapi,
 	siGooglecloud,
 	siPostgresql, siMysql, siRedis, siElasticsearch,
 	siDocker, siKubernetes, siHelm, siArgo,
-	siJenkins, siBuildkite, siGithubactions,
+	siJenkins, siBuildkite, siGithubactions, siGocd,
 	siHuggingface, siScala, siDart,
 } from 'simple-icons';
 
@@ -19,12 +19,14 @@ const iconMap: Record<string, SimpleIcon> = {
 	Go: siGo,
 	Rust: siRust,
 	Clojure: siClojure,
+	'F#': siFsharp,
 	PHP: siPhp,
 	'Spring Boot': siSpringboot,
 	'.NET': siDotnet,
 	'Vue.js': siVuedotjs,
 	React: siReact,
 	Angular: siAngular,
+	AngularDart: siAngular, // no dedicated AngularDart glyph; use Angular mark
 	'Next.js': siNextdotjs,
 	lit: siLit,
 	Laravel: siLaravel,
@@ -43,6 +45,7 @@ const iconMap: Record<string, SimpleIcon> = {
 	Argo: siArgo,
 	Jenkins: siJenkins,
 	Buildkite: siBuildkite,
+	GoCD: siGocd,
 	SentenceTransformer: siHuggingface,
 };
 
