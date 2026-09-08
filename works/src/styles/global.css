@@ -50,7 +50,9 @@
 	--c-print-accent:     #333333;
 
 	/* ── Typography ──────────────────────────────── */
-	--font-sans: 'Zen Maru Gothic', system-ui, -apple-system, sans-serif;
+	/* body: BIZ UDPGothic / name: BIZ UDPMincho */
+	--font-sans: 'BIZ UDPGothic', 'Hiragino Sans', 'Noto Sans JP', system-ui, sans-serif;
+	--font-display: 'BIZ UDPMincho', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
 
 	/*
 	 * Type scale — 1rem の倍率。html / ユーザー設定の font-size に追従する。
