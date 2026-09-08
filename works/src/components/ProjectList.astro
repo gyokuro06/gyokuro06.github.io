@@ -19,7 +19,7 @@ import { getIcon } from '../lib/icons';
 						<span class="project-meta-sep" aria-hidden="true" />
 						<span class="project-meta-item">{project.role}</span>
 					</div>
-					<ul class="project-tags">
+					<ul class="project-tags" role="list" aria-label={`${project.title}の技術スタック`}>
 						{project.techStack.map((tech) => {
 							const icon = getIcon(tech);
 							return (
@@ -27,17 +27,20 @@ import { getIcon } from '../lib/icons';
 									class="project-tag"
 									style={icon ? `--brand: #${icon.hex}` : undefined}
 									data-has-icon={icon ? '' : undefined}
+									title={tech}
+									aria-label={tech}
 								>
 									{icon?.path && (
 										<svg
 											class="skill-icon"
 											viewBox="0 0 24 24"
 											aria-hidden="true"
+											focusable="false"
 										>
 											<path d={icon.path} fill="currentColor" />
 										</svg>
 									)}
-									{tech}
+									<span aria-hidden="true">{tech}</span>
 								</li>
 							);
 						})}

@@ -8,35 +8,42 @@ import { getIcon } from '../lib/icons';
 		<h2 id="skills-heading" class="section-title">スキル</h2>
 	</div>
 	<div class="skill-table">
-		{skillCategories.map((cat) => (
-			<div class="skill-row">
-				<span class="skill-cat-label">{cat.label}</span>
-				<ul class="skill-tags">
-					{cat.items.toSorted((a, b) => b.years - a.years).map((item) => {
-						const icon = getIcon(item.name);
-						return (
-							<li
-								class="skill-tag"
-								style={icon ? `--brand: #${icon.hex}` : undefined}
-								data-has-icon={icon ? '' : undefined}
-							>
-								{icon?.path && (
-									<svg
-										class="skill-icon"
-										viewBox="0 0 24 24"
-										aria-hidden="true"
-									>
-										<path d={icon.path} fill="currentColor" />
-									</svg>
-								)}
-								{item.name}
-								<span class="skill-tag-years">{item.years}年</span>
-							</li>
-						);
-					})}
-				</ul>
-			</div>
-		))}
+		{skillCategories.map((cat, catIndex) => {
+			const labelId = `skill-cat-${catIndex}`;
+			return (
+				<div class="skill-row">
+					<span class="skill-cat-label" id={labelId}>{cat.label}</span>
+					<ul class="skill-tags" role="list" aria-labelledby={labelId}>
+						{cat.items.toSorted((a, b) => b.years - a.years).map((item) => {
+							const icon = getIcon(item.name);
+							const accessibleName = `${item.name}、経験${item.years}年`;
+							return (
+								<li
+									class="skill-tag"
+									style={icon ? `--brand: #${icon.hex}` : undefined}
+									data-has-icon={icon ? '' : undefined}
+									title={accessibleName}
+									aria-label={accessibleName}
+								>
+									{icon?.path && (
+										<svg
+											class="skill-icon"
+											viewBox="0 0 24 24"
+											aria-hidden="true"
+											focusable="false"
+										>
+											<path d={icon.path} fill="currentColor" />
+										</svg>
+									)}
+									<span aria-hidden="true">{item.name}</span>
+									<span class="skill-tag-years" aria-hidden="true">{item.years}年</span>
+								</li>
+							);
+						})}
+					</ul>
+				</div>
+			);
+		})}
 	</div>
 </section>
 
