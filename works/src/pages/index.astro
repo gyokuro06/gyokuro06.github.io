@@ -30,18 +30,20 @@ import { profile } from '../data/works';
 		flex: 1;
 		width: var(--page-width);
 		margin-inline: auto;
-		padding-block: clamp(var(--space-8), 4vw, var(--space-12)) clamp(var(--space-12), 6vw, var(--space-20));
+		padding-block: clamp(var(--space-6), 3vw, var(--space-8)) clamp(var(--space-8), 4vw, var(--space-12));
 		display: flex;
 		flex-direction: column;
-		gap: clamp(var(--space-10), 4vw, var(--space-14));
+		gap: clamp(var(--space-7), 3vw, var(--space-10));
 	}
 
 	.footer {
 		border-block-start: 1px solid var(--c-line);
-		padding: var(--space-4) var(--space-8);
+		padding: var(--space-3) var(--space-6);
 		text-align: center;
 		font-size: var(--text-xs);
 		color: var(--c-text-muted);
+		font-family: var(--font-mono);
+		letter-spacing: 0.02em;
 	}
 
 	.footer p {
@@ -51,8 +53,8 @@ import { profile } from '../data/works';
 	@media print {
 		.main {
 			width: 100%;
-			padding-block: var(--space-3) var(--space-4);
-			gap: var(--space-5);
+			padding-block: var(--space-2) var(--space-3);
+			gap: var(--space-4);
 		}
 	}
 </style>

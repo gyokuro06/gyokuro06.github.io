@@ -13,22 +13,25 @@ import { getIcon } from '../lib/icons';
 			<article class="project-card" aria-label={project.title}>
 				<header class="project-header">
 					<h3 class="project-title">{project.title}</h3>
-					<div class="project-meta">
-						<span class="project-period">{project.period}</span>
-						<span class="project-meta-sep" aria-hidden="true" />
-						<span class="project-meta-item">チーム {project.teamSize}</span>
-						<span class="project-meta-sep" aria-hidden="true" />
-						<span class="project-meta-item">{project.role}</span>
-					</div>
+					<dl class="project-meta">
+						<div class="project-meta-row">
+							<dt class="project-meta-key">period</dt>
+							<dd class="project-meta-val project-period">{project.period}</dd>
+						</div>
+						<div class="project-meta-row">
+							<dt class="project-meta-key">team</dt>
+							<dd class="project-meta-val">{project.teamSize}</dd>
+						</div>
+						<div class="project-meta-row">
+							<dt class="project-meta-key">role</dt>
+							<dd class="project-meta-val">{project.role}</dd>
+						</div>
+					</dl>
 					<ul class="project-tags">
 						{project.techStack.map((tech) => {
 							const icon = getIcon(tech);
 							return (
-								<li
-									class="project-tag"
-									style={icon ? `--brand: #${icon.hex}` : undefined}
-									data-has-icon={icon ? '' : undefined}
-								>
+								<li class="project-tag">
 									{icon && (
 										<svg
 											class="skill-icon"
@@ -63,54 +66,55 @@ import { getIcon } from '../lib/icons';
 	.section {
 		display: flex;
 		flex-direction: column;
-		gap: var(--space-6);
+		gap: var(--space-4);
 	}
 
 	.section-heading {
 		display: flex;
 		align-items: baseline;
-		gap: var(--space-3);
-		padding-block-end: var(--space-3);
+		gap: var(--space-2);
+		padding-block-end: var(--space-2);
 		border-block-end: 1px solid var(--c-line);
 	}
 
 	.section-num {
-		font-family: var(--font-display);
-		font-size: var(--text-sm);
-		font-weight: 700;
-		color: var(--c-amber);
-		letter-spacing: 0.05em;
+		font-family: var(--font-mono);
+		font-size: var(--text-xs);
+		font-weight: 500;
+		color: var(--c-text-muted);
+		letter-spacing: 0.02em;
+		font-variant-numeric: tabular-nums;
 	}
 
 	.section-title {
 		margin: 0;
-		font-family: var(--font-display);
+		font-family: var(--font-sans);
 		font-size: var(--text-xl);
-		font-weight: 400;
+		font-weight: 700;
+		letter-spacing: -0.01em;
 		color: var(--c-text);
 	}
 
 	.project-list {
 		display: flex;
 		flex-direction: column;
-		gap: var(--space-5);
+		gap: var(--space-3);
 	}
 
 	.project-card {
 		background: var(--c-surface);
 		border: 1px solid var(--c-line);
-		border-inline-start: 3px solid var(--c-teal);
-		border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
-		padding: clamp(var(--space-5), 2vw, var(--space-6)) clamp(var(--space-5), 2.5vw, var(--space-7));
+		border-radius: var(--radius-md);
+		padding: var(--space-4) var(--space-4);
 		display: flex;
 		flex-direction: column;
-		gap: var(--space-4);
+		gap: var(--space-3);
 	}
 
 	.project-header {
 		display: flex;
 		flex-direction: column;
-		gap: var(--space-3);
+		gap: var(--space-2);
 	}
 
 	.project-title {
@@ -118,30 +122,48 @@ import { getIcon } from '../lib/icons';
 		font-size: var(--text-lg);
 		font-weight: 700;
 		color: var(--c-text);
-		line-height: 1.4;
+		line-height: 1.35;
+		letter-spacing: -0.01em;
 	}
 
 	.project-meta {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: center;
-		gap: 0.35em 0;
-		font-size: var(--text-sm);
+		margin: 0;
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, max-content));
+		column-gap: var(--space-5);
+		row-gap: var(--space-1);
+		font-size: var(--text-xs);
+	}
+
+	.project-meta-row {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		align-items: baseline;
+		gap: 0.45em;
+		min-width: 0;
+	}
+
+	.project-meta-key {
+		margin: 0;
+		font-family: var(--font-mono);
+		font-size: 0.92em;
+		font-weight: 500;
+		color: var(--c-text-muted);
+		letter-spacing: 0.02em;
+		text-transform: lowercase;
+	}
+
+	.project-meta-val {
+		margin: 0;
 		color: var(--c-text-sub);
+		font-weight: 500;
+		min-width: 0;
 	}
 
 	.project-period {
-		font-weight: 700;
+		font-variant-numeric: tabular-nums;
 		color: var(--c-text);
-	}
-
-	.project-meta-sep {
-		display: inline-block;
-		width: 1px;
-		height: 0.85em;
-		background: var(--c-line-strong);
-		margin-inline: 0.65em;
-		vertical-align: middle;
+		font-weight: 700;
 	}
 
 	.project-tags {
@@ -150,40 +172,36 @@ import { getIcon } from '../lib/icons';
 		padding: 0;
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.35em;
+		gap: 0.3em;
 	}
 
 	.project-tag {
 		display: inline-flex;
 		align-items: center;
-		gap: 0.35em;
-		padding: 0.25em 0.6em;
-		border: 1px solid var(--c-teal-border);
+		gap: 0.3em;
+		padding: 0.15em 0.4em;
+		border: 1px solid var(--c-chip-border);
 		border-radius: var(--radius-sm);
-		background: var(--c-teal-bg);
+		background: var(--c-chip-bg);
 		font-size: var(--text-xs);
 		font-weight: 500;
-		color: var(--c-teal);
-		line-height: 1.5;
-	}
-
-	.project-tag[data-has-icon] {
-		border-color: color-mix(in srgb, var(--brand) 30%, transparent);
-		background: color-mix(in srgb, var(--brand) 10%, var(--c-mix-paper));
-		color: color-mix(in srgb, var(--brand) 80%, var(--c-mix-ink));
+		color: var(--c-chip-text);
+		line-height: 1.4;
 	}
 
 	.skill-icon {
 		flex-shrink: 0;
-		width: 1em;
-		height: 1em;
-		color: var(--brand);
+		width: 0.95em;
+		height: 0.95em;
+		color: var(--c-text-muted);
 	}
 
 	.project-body {
 		display: flex;
 		flex-direction: column;
-		gap: var(--space-4);
+		gap: var(--space-3);
+		padding-block-start: var(--space-1);
+		border-block-start: 1px solid var(--c-line);
 	}
 
 	.project-block {
@@ -196,26 +214,33 @@ import { getIcon } from '../lib/icons';
 		margin: 0;
 		font-size: var(--text-xs);
 		font-weight: 700;
-		letter-spacing: 0.06em;
+		letter-spacing: 0.04em;
 		color: var(--c-text-muted);
 	}
 
 	.project-block-text {
 		margin: 0;
-		font-size: var(--text-md);
-		line-height: 1.85;
+		font-size: var(--text-sm);
+		line-height: 1.7;
 		color: var(--c-text);
 		max-width: min(var(--measure-body), 100%);
 	}
 
+	@media (max-width: 36rem) {
+		.project-meta {
+			grid-template-columns: 1fr;
+		}
+	}
+
 	@media print {
 		.section {
-			gap: var(--space-3);
+			gap: var(--space-2);
 		}
 
 		.section-heading {
 			padding-block-end: var(--space-1);
 			gap: var(--space-2);
+			border-color: var(--c-print-line);
 			break-after: avoid;
 		}
 
@@ -224,16 +249,14 @@ import { getIcon } from '../lib/icons';
 		}
 
 		.project-list {
-			gap: var(--space-3);
+			gap: var(--space-2);
 		}
 
 		.project-card {
-			padding: var(--space-3) var(--space-4);
+			padding: var(--space-2) var(--space-3);
 			gap: var(--space-2);
 			background: var(--c-print-bg);
 			border-color: var(--c-print-tag-border);
-			border-inline-start-color: var(--c-print-accent);
-			/* 長いカードは分割可。タイトル周りだけ次ページに連れない */
 			break-inside: auto;
 			break-before: auto;
 		}
@@ -244,27 +267,41 @@ import { getIcon } from '../lib/icons';
 			break-after: avoid;
 		}
 
+		.project-meta-key {
+			color: var(--c-print-muted);
+		}
+
+		.project-meta-val {
+			color: var(--c-print-text);
+		}
+
 		.project-tags {
-			gap: 0.2em;
+			gap: 0.15em;
 		}
 
 		.project-tag {
-			padding: 0.12em 0.45em;
+			padding: 0.08em 0.3em;
 			background: var(--c-print-tag-bg);
 			border-color: var(--c-print-tag-border);
 			color: var(--c-print-tag-text);
 		}
 
+		.skill-icon {
+			color: var(--c-print-muted);
+		}
+
 		.project-body {
 			gap: var(--space-2);
+			border-color: var(--c-print-line);
 		}
 
 		.project-block-label {
+			color: var(--c-print-muted);
 			break-after: avoid;
 		}
 
 		.project-block-text {
-			line-height: 1.55;
+			line-height: 1.5;
 			max-width: none;
 			orphans: 3;
 			widows: 3;

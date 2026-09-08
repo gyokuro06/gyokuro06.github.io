@@ -1,5 +1,5 @@
 /*
- * CSS Design Policy
+ * CSS Design Policy — D2 Dense product UI
  * ─────────────────────────────────────────────────────────────────────────
  * font-size : rem のみ。値は 1rem（ルートフォントサイズ）に対する倍率で定義する。
  *             コンポーネント内の付随テキスト（バッジ内の年数表記等）は
@@ -15,62 +15,60 @@
  */
 
 :root {
-	/* ── Palette ─────────────────────────────────── */
-	--c-bg:          #f7f6f2;
+	/* ── Palette (cool gray / system UI) ─────────── */
+	--c-bg:          #f4f5f7;
 	--c-surface:     #ffffff;
 
-	--c-text:        #141414;
-	--c-text-sub:    #4e4e58;
-	--c-text-muted:  #9898a0;
+	--c-text:        #0f172a;
+	--c-text-sub:    #475569;
+	--c-text-muted:  #64748b;
 
-	--c-line:        #e3e1db;
-	--c-line-strong: #c5c3bc;
+	--c-line:        #e2e8f0;
+	--c-line-strong: #cbd5e1;
 
-	/* teal — professional accent */
-	--c-teal:        #2c7873;
-	--c-teal-bg:     #e8f4f3;
-	--c-teal-border: #a8d5d1;
-	--c-on-teal:     #ffffff;
+	/* single calm accent — slate (not amber / bright blue) */
+	--c-accent:        #334155;
+	--c-accent-soft:   #f1f5f9;
+	--c-accent-border: #cbd5e1;
+	--c-on-accent:     #ffffff;
 
-	/* amber — decorative / playful */
-	--c-amber:       #b87333;
-
-	/* brand-mix bases (simple-icons hex と混ぜる基準色) */
-	--c-mix-paper:   #ffffff;
-	--c-mix-ink:     #111111;
+	/* neutral chips (no brand tint) */
+	--c-chip-bg:     #f8fafc;
+	--c-chip-border: #e2e8f0;
+	--c-chip-text:   #334155;
 
 	/* print */
 	--c-print-bg:         #ffffff;
 	--c-print-text:       #000000;
 	--c-print-line:       #cccccc;
-	--c-print-muted:      #888888;
-	--c-print-tag-bg:     #f5f5f5;
-	--c-print-tag-border: #bbbbbb;
-	--c-print-tag-text:   #333333;
-	--c-print-accent:     #666666;
+	--c-print-muted:      #666666;
+	--c-print-tag-bg:     #ffffff;
+	--c-print-tag-border: #999999;
+	--c-print-tag-text:   #222222;
+	--c-print-accent:     #444444;
 
 	/* ── Typography ──────────────────────────────── */
-	--font-sans:    'Zen Maru Gothic', system-ui, -apple-system, sans-serif;
-	--font-display: 'Zen Kurenaido', serif;
+	--font-sans: 'Zen Maru Gothic', system-ui, -apple-system, sans-serif;
+	--font-mono: ui-monospace, 'SF Mono', 'Cascadia Code', 'Segoe UI Mono', Menlo, Consolas, monospace;
 
 	/*
-	 * Type scale — 1rem の倍率。html / ユーザー設定の font-size に追従する。
+	 * Type scale — denser product UI (slightly tighter display steps)
 	 *
 	 *   --text-xs  : 0.75    タグ・メタ情報・補足テキスト
-	 *   --text-sm  : 0.875   カード本文・補助情報
+	 *   --text-sm  : 0.8125  補助情報・メタ行
 	 *   --text-md  : 1       本文（基準）
-	 *   --text-lg  : 1.125   リード文・強調本文
-	 *   --text-xl  : 1.5     セクション見出し
-	 *   --text-2xl : 2       ページ内大見出し
-	 *   --text-3xl : 2.5     ページタイトル
+	 *   --text-lg  : 1.0625  プロジェクト見出し
+	 *   --text-xl  : 1.125   セクション見出し
+	 *   --text-2xl : 1.5     名前（密な sans）
+	 *   --text-3xl : 1.75    （予備）
 	 */
 	--text-xs:  calc(1rem * 0.75);
-	--text-sm:  calc(1rem * 0.875);
+	--text-sm:  calc(1rem * 0.8125);
 	--text-md:  1rem;
-	--text-lg:  calc(1rem * 1.125);
-	--text-xl:  calc(1rem * 1.5);
-	--text-2xl: calc(1rem * 2);
-	--text-3xl: calc(1rem * 2.5);
+	--text-lg:  calc(1rem * 1.0625);
+	--text-xl:  calc(1rem * 1.125);
+	--text-2xl: calc(1rem * 1.5);
+	--text-3xl: calc(1rem * 1.75);
 
 	/* ── Spacing (multiples of 1rem) ─────────────── */
 	--space-1:  0.25rem;
@@ -88,18 +86,17 @@
 	--space-20: 5rem;
 
 	/* ── Layout ──────────────────────────────────── */
-	--page-max: 54rem;
-	--page-gutter: clamp(1rem, 4vw, 2rem);
+	--page-max: 52rem;
+	--page-gutter: clamp(0.875rem, 3.5vw, 1.5rem);
 	--page-width: min(calc(100% - 2 * var(--page-gutter)), var(--page-max));
-	--skill-label-col: 7rem;
-	--measure-lead: 40em;
+	--skill-label-col: 6.5rem;
+	--measure-lead: 42em;
 	--measure-body: 70ch;
 
-	/* ── Radius ──────────────────────────────────── */
-	--radius-sm: 4px;
-	--radius-md: 6px;
-	--radius-lg: 8px;
-	--radius-pill: 999px;
+	/* ── Radius (small; no pills) ────────────────── */
+	--radius-xs: 2px;
+	--radius-sm: 3px;
+	--radius-md: 4px;
 }
 
 html,
@@ -119,7 +116,7 @@ body {
 	min-height: 100vh;
 	background: var(--c-bg);
 	color: var(--c-text);
-	line-height: 1.8;
+	line-height: 1.65;
 }
 
 a {
@@ -136,7 +133,7 @@ a {
 	body {
 		background: var(--c-print-bg);
 		color: var(--c-print-text);
-		line-height: 1.55;
+		line-height: 1.5;
 	}
 
 	.no-print {
