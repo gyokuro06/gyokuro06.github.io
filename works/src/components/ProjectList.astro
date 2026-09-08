@@ -1,6 +1,6 @@
 ---
 import { projects } from '../data/works';
-import { getIcon } from '../lib/icons';
+import { getIcon, isLightBrand } from '../lib/icons';
 ---
 
 <section class="section" aria-labelledby="projects-heading">
@@ -22,11 +22,13 @@ import { getIcon } from '../lib/icons';
 					<ul class="project-tags" role="list" aria-label={`${project.title}の技術スタック`}>
 						{project.techStack.map((tech) => {
 							const icon = getIcon(tech);
+							const lightBrand = icon ? isLightBrand(icon.hex) : false;
 							return (
 								<li
 									class="project-tag"
 									style={icon ? `--brand: #${icon.hex}` : undefined}
 									data-has-icon={icon ? '' : undefined}
+									data-brand-light={lightBrand ? '' : undefined}
 									title={tech}
 									aria-label={tech}
 								>
@@ -169,6 +171,16 @@ import { getIcon } from '../lib/icons';
 		background: color-mix(in srgb, var(--brand) 28%, var(--c-mix-paper));
 		color: color-mix(in srgb, var(--brand) 78%, #000000);
 		box-shadow: inset 0.22em 0 0 var(--brand);
+	}
+
+	.project-tag[data-has-icon][data-brand-light] {
+		border-color: color-mix(in srgb, var(--brand) 35%, var(--c-line-strong));
+		background: color-mix(in srgb, var(--brand) 12%, var(--c-mix-paper));
+		color: var(--c-text);
+	}
+
+	.project-tag[data-has-icon][data-brand-light] .skill-icon {
+		color: color-mix(in srgb, var(--brand) 65%, var(--c-mix-ink));
 	}
 
 	.skill-icon {
