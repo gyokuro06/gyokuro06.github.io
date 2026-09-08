@@ -1,7 +1,7 @@
 import {
 	siKotlin, siTypescript, siJavascript, siPython, siGo, siRust, siClojure, siOpenjdk, siPhp,
 	siSpringboot, siDotnet, siVuedotjs, siReact, siAngular, siNextdotjs, siLit, siLaravel, siFastapi,
-	siGooglecloud, siAmazonwebservices,
+	siGooglecloud,
 	siPostgresql, siMysql, siRedis, siElasticsearch,
 	siDocker, siKubernetes, siHelm, siArgo,
 	siJenkins, siBuildkite, siGithubactions,
@@ -30,7 +30,6 @@ const iconMap: Record<string, SimpleIcon> = {
 	Laravel: siLaravel,
 	FastAPI: siFastapi,
 	GCP: siGooglecloud,
-	AWS: siAmazonwebservices,
 	'GitHub Actions': siGithubactions,
 	Scala: siScala,
 	Dart: siDart,
