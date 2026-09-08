@@ -1,14 +1,30 @@
+import { formatPeriod } from '../lib/timeline';
+
 export type SkillItem = { name: string; years: number };
 export type SkillCategory = { label: string; items: SkillItem[] };
 
-export type Project = {
+/** YYYY.MM */
+export type YearMonth = `${number}.${string}`;
+
+export type Company = {
+	id: string;
+	name: string;
+};
+
+export type ProjectInput = {
 	title: string;
-	period: string;
+	companyId: string;
+	start: YearMonth;
+	end: YearMonth | null;
 	teamSize: string;
 	role: string;
 	summary: string;
 	techStack: string[];
 	challenge: string;
+};
+
+export type Project = ProjectInput & {
+	period: string;
 };
 
 export const profile = {
@@ -20,6 +36,13 @@ export const profile = {
 		'マイクロサービスで言語やフレームワークが分かれた現場での経験が長いことから、キャッチアップしながら開発することにも慣れている',
 	],
 };
+
+export const companies: Company[] = [
+	{ id: 'childcare-ict', name: '保育ICT企業' },
+	{ id: 'company-analysis-saas', name: '企業分析SaaS企業' },
+	{ id: 'career-support', name: 'キャリア支援企業' },
+	{ id: 'outsourcing-technology', name: '株式会社アウトソーシングテクノロジー' },
+];
 
 export const skillCategories: SkillCategory[] = [
 	{
@@ -101,10 +124,12 @@ export const skillCategories: SkillCategory[] = [
 	},
 ];
 
-export const projects: Project[] = [
+const projectInputs: ProjectInput[] = [
 	{
 		title: '保育プラットフォーム セキュリティ改修',
-		period: '2026.04 〜 現在',
+		companyId: 'childcare-ict',
+		start: '2026.04',
+		end: null,
 		teamSize: '4名',
 		role: 'エンジニア（要件定義 / 設計 / 実装 / 運用）',
 		summary:
@@ -115,7 +140,9 @@ export const projects: Project[] = [
 	},
 	{
 		title: 'toC向け 写真購入・配送まとめ機能 新規開発',
-		period: '2026.01 〜 2026.04',
+		companyId: 'childcare-ict',
+		start: '2026.01',
+		end: '2026.04',
 		teamSize: '6〜8名',
 		role: 'エンジニア（要件定義 / 見積もり / 計画 / 設計 / 実装）',
 		summary:
@@ -126,7 +153,9 @@ export const projects: Project[] = [
 	},
 	{
 		title: '非上場企業データ推定モデル開発 / MLOps',
-		period: '2025.08 〜 2025.12',
+		companyId: 'company-analysis-saas',
+		start: '2025.08',
+		end: '2025.12',
 		teamSize: '4名',
 		role: 'エンジニア（問題設計 / アルゴリズム開発 / データ設計 / MLOps / 設計 / テスト / 実装）',
 		summary:
@@ -137,7 +166,9 @@ export const projects: Project[] = [
 	},
 	{
 		title: '法人向けキャリア開発アプリ リプレイス',
-		period: '2025.04 〜 2025.10',
+		companyId: 'career-support',
+		start: '2025.04',
+		end: '2025.10',
 		teamSize: '3名',
 		role: 'エンジニア（要件定義 / 設計 / 実装）',
 		summary:
@@ -148,7 +179,9 @@ export const projects: Project[] = [
 	},
 	{
 		title: '社内特化 検索モデル開発 / MLOps',
-		period: '2025.03 〜 2025.08',
+		companyId: 'company-analysis-saas',
+		start: '2025.03',
+		end: '2025.08',
 		teamSize: '4名',
 		role: 'エンジニア（問題設計 / アルゴリズム開発 / 実験 / MLOps / Vertex AI設定 / API開発）',
 		summary:
@@ -159,7 +192,9 @@ export const projects: Project[] = [
 	},
 	{
 		title: '海外事業向けローカライズ機能開発',
-		period: '2024.09 〜 2025.03',
+		companyId: 'company-analysis-saas',
+		start: '2024.09',
+		end: '2025.03',
 		teamSize: '4名',
 		role: 'エンジニア（要件定義 / 工数見積もり / インフラ構築 / 設計 / テスト / 実装 / CI/CD）',
 		summary:
@@ -170,7 +205,9 @@ export const projects: Project[] = [
 	},
 	{
 		title: '海外サービス買収・システムマイグレーション',
-		period: '2024.04 〜 2024.09',
+		companyId: 'company-analysis-saas',
+		start: '2024.04',
+		end: '2024.09',
 		teamSize: '3名',
 		role: 'エンジニア（要件定義 / 工数見積り / インフラ構築 / 設計 / テスト / 実装 / CI/CD）',
 		summary:
@@ -181,7 +218,9 @@ export const projects: Project[] = [
 	},
 	{
 		title: '市場分析プロダクト ニュース機能開発',
-		period: '2023.04 〜 2024.04',
+		companyId: 'company-analysis-saas',
+		start: '2023.04',
+		end: '2024.04',
 		teamSize: '4名',
 		role: 'エンジニア（要件定義 / 工数見積り / 設計 / テスト / 実装 / CI/CD）',
 		summary:
@@ -192,7 +231,9 @@ export const projects: Project[] = [
 	},
 	{
 		title: '市場分析プロダクト 企業リスト機能 新規開発',
-		period: '2022.12 〜 2023.04',
+		companyId: 'company-analysis-saas',
+		start: '2022.12',
+		end: '2023.04',
 		teamSize: '5名',
 		role: 'エンジニア（要件定義 / 工数見積り / 設計 / テスト / 実装 / CI/CD）',
 		summary:
@@ -203,7 +244,9 @@ export const projects: Project[] = [
 	},
 	{
 		title: 'データサプライヤー連携 API 新規開発',
-		period: '2021.08 〜 2022.12',
+		companyId: 'company-analysis-saas',
+		start: '2021.08',
+		end: '2022.12',
 		teamSize: '3名',
 		role: 'エンジニア（要件定義 / 工数見積り / 設計 / テスト / 実装 / CI/CD）',
 		summary:
@@ -214,7 +257,9 @@ export const projects: Project[] = [
 	},
 	{
 		title: 'カンバン型タスク管理システム 新規開発',
-		period: '2020.03 〜 2021.07',
+		companyId: 'outsourcing-technology',
+		start: '2020.03',
+		end: '2021.07',
 		teamSize: '15名',
 		role: 'エンジニア（実装 / テスト）',
 		summary:
@@ -224,3 +269,8 @@ export const projects: Project[] = [
 			'詳細設計書ベースでインターフェースは変えられない制約のなか、中身の処理をprivate関数に分割してやっていることが明確な関数にしてよいか提案するなど、改善を積極的に出した。テスト手順書どおりの実行と報告書作成については、VBAやVBScriptで報告書をある程度自動作成するツールを開発し、チーム全体で使えないか提案して作業効率の向上に貢献した。',
 	},
 ];
+
+export const projects: Project[] = projectInputs.map((p) => ({
+	...p,
+	period: formatPeriod(p.start, p.end),
+}));

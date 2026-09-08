@@ -1,0 +1,233 @@
+---
+import { companies, projects } from '../data/works';
+import { buildCompanyTimeline } from '../lib/timeline';
+
+const timeline = buildCompanyTimeline(companies, projects);
+---
+
+<section class="section" aria-labelledby="timeline-heading">
+	<div class="section-heading">
+		<h2 id="timeline-heading" class="section-title">経歴タイムライン</h2>
+	</div>
+
+	<div
+		class="timeline"
+		role="img"
+		aria-label={`会社ごとの参画期間。${timeline.lanes.map((l) => `${l.name} ${l.periodLabel}`).join('。')}`}
+	>
+		<div class="timeline-axis" aria-hidden="true">
+			{timeline.ticks.map((tick) => (
+				<span class="timeline-tick" style={`left: ${tick.pct}%`}>{tick.label}</span>
+			))}
+		</div>
+
+		<ul class="timeline-lanes" role="list">
+			{timeline.lanes.map((lane) => {
+				/* 右端に寄った短い帯だけラベルを右寄せ */
+				const alignEnd = lane.leftPct > 70;
+				return (
+					<li class="timeline-lane">
+						<p class="timeline-lane-label">{lane.name}</p>
+						<div class="timeline-track">
+							<div
+								class:list={['timeline-span', alignEnd && 'is-end']}
+								style={`left: ${lane.leftPct}%; width: ${lane.widthPct}%;`}
+							>
+								<span class="timeline-period">{lane.periodLabel}</span>
+								<span class="timeline-bar" aria-hidden="true"></span>
+							</div>
+						</div>
+					</li>
+				);
+			})}
+		</ul>
+	</div>
+</section>
+
+<style>
+	.section {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-5);
+	}
+
+	.section-heading {
+		padding-block-end: 0;
+	}
+
+	.section-title {
+		margin: 0;
+		font-family: var(--font-sans);
+		font-size: var(--text-xl);
+		font-weight: 700;
+		letter-spacing: 0;
+		color: var(--c-text);
+	}
+
+	.timeline {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-2);
+	}
+
+	.timeline-axis {
+		position: relative;
+		height: 1.25rem;
+		margin-inline-start: min(42%, 12rem);
+		border-block-end: 1px solid var(--c-line);
+	}
+
+	.timeline-tick {
+		position: absolute;
+		bottom: 0.15rem;
+		transform: translateX(-50%);
+		font-size: var(--text-xs);
+		color: var(--c-text-muted);
+		line-height: 1;
+		white-space: nowrap;
+	}
+
+	.timeline-tick:first-child {
+		transform: translateX(0);
+	}
+
+	.timeline-lanes {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-5);
+	}
+
+	.timeline-lane {
+		display: grid;
+		grid-template-columns: minmax(7rem, min(42%, 12rem)) minmax(0, 1fr);
+		gap: var(--space-3);
+		align-items: end;
+	}
+
+	.timeline-lane-label {
+		margin: 0;
+		font-size: var(--text-sm);
+		font-weight: 400;
+		line-height: 1.4;
+		color: var(--c-text-muted);
+		text-wrap: balance;
+	}
+
+	.timeline-track {
+		position: relative;
+		height: 2.5rem;
+		overflow: visible;
+		background: transparent;
+		box-shadow: inset 0 -1px 0 var(--c-line);
+	}
+
+	.timeline-span {
+		position: absolute;
+		bottom: 0;
+		height: 100%;
+		overflow: visible;
+		pointer-events: none;
+	}
+
+	/* 期間はバー幅に縛らない */
+	.timeline-period {
+		position: absolute;
+		bottom: 0.85rem;
+		left: 0;
+		width: max-content;
+		font-size: var(--text-xs);
+		font-weight: 700;
+		line-height: 1.2;
+		color: var(--c-text);
+		white-space: nowrap;
+	}
+
+	.timeline-span.is-end .timeline-period {
+		left: auto;
+		right: 0;
+	}
+
+	.timeline-bar {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0.05rem;
+		height: 0.25rem;
+		border-radius: 999px;
+		background: color-mix(in srgb, var(--c-accent) 72%, var(--c-mix-paper));
+	}
+
+	/* 始点・終点の丸 */
+	.timeline-bar::before,
+	.timeline-bar::after {
+		content: '';
+		position: absolute;
+		top: 50%;
+		width: 0.5rem;
+		height: 0.5rem;
+		border-radius: 50%;
+		background: inherit;
+		transform: translateY(-50%);
+	}
+
+	.timeline-bar::before {
+		left: 0;
+		transform: translate(-35%, -50%);
+	}
+
+	.timeline-bar::after {
+		right: 0;
+		transform: translate(35%, -50%);
+	}
+
+	@media (max-width: 40rem) {
+		.timeline-axis {
+			margin-inline-start: 0;
+		}
+
+		.timeline-lane {
+			grid-template-columns: 1fr;
+			gap: var(--space-1);
+			align-items: stretch;
+		}
+
+		.timeline-lane-label {
+			font-size: var(--text-xs);
+		}
+
+		.timeline-lanes {
+			gap: var(--space-4);
+		}
+	}
+
+	@media print {
+		.section {
+			gap: var(--space-3);
+		}
+
+		.timeline-lanes {
+			gap: var(--space-3);
+		}
+
+		.timeline-track {
+			box-shadow: inset 0 -1px 0 var(--c-print-line);
+		}
+
+		.timeline-bar {
+			background: var(--c-print-accent);
+			print-color-adjust: exact;
+			-webkit-print-color-adjust: exact;
+		}
+
+		.timeline-period {
+			color: var(--c-print-text);
+		}
+
+		.timeline-lane-label {
+			color: var(--c-print-muted);
+		}
+	}
+</style>

@@ -1,5 +1,6 @@
 ---
-import { projects } from '../data/works';
+import { companies, projects } from '../data/works';
+import { companyNameById } from '../lib/timeline';
 import { getIcon, isLightBrand } from '../lib/icons';
 ---
 
@@ -11,6 +12,7 @@ import { getIcon, isLightBrand } from '../lib/icons';
 		{projects.map((project) => (
 			<article class="project-entry" aria-label={project.title}>
 				<header class="project-header">
+					<p class="project-company">{companyNameById(companies, project.companyId)}</p>
 					<h3 class="project-title">{project.title}</h3>
 					<div class="project-meta">
 						<span class="project-period">{project.period}</span>
@@ -102,6 +104,15 @@ import { getIcon, isLightBrand } from '../lib/icons';
 		display: flex;
 		flex-direction: column;
 		gap: var(--space-2);
+	}
+
+	.project-company {
+		margin: 0;
+		font-size: var(--text-sm);
+		font-weight: 400;
+		letter-spacing: 0;
+		line-height: 1.4;
+		color: var(--c-text-muted);
 	}
 
 	.project-title {
@@ -228,6 +239,10 @@ import { getIcon, isLightBrand } from '../lib/icons';
 			gap: var(--space-1);
 			break-inside: avoid;
 			break-after: avoid;
+		}
+
+		.project-company {
+			color: var(--c-print-muted);
 		}
 
 		.project-meta {
