@@ -15,28 +15,32 @@
  */
 
 :root {
-	/* ── Palette — editorial document (ink + quiet accent) ── */
+	/*
+	 * Palette — Warm ink (adopted)
+	 * 紙面は白のまま（クリーム禁止）。ニュートラルをわずかに暖色寄りにし、
+	 * アクセントは低彩度の墨茶1色のみ。アンバー／テラコッタの装飾感は避ける。
+	 */
 	--c-bg:          #ffffff;
 	--c-surface:     #ffffff;
 
-	--c-text:        #1a1a1a;
-	--c-text-sub:    #4a4a4a;
-	--c-text-muted:  #6e6e6e;
+	--c-text:        #1c1917;
+	--c-text-sub:    #57534e;
+	--c-text-muted:  #78716c;
 
-	--c-line:        #e5e5e5;
-	--c-line-strong: #c8c8c8;
+	--c-line:        #e7e5e4;
+	--c-line-strong: #d6d3d1;
 
-	/* ink blue — single quiet accent */
-	--c-accent:      #2c3e50;
-	--c-accent-soft: #f0f2f4;
+	/* warm ink — PDFボタン / focus / soft badge wash */
+	--c-accent:      #4a3728;
+	--c-accent-soft: #f5f2ef;
 	--c-on-accent:   #ffffff;
 
-	/* print (同型・意味が色に依存しない) */
+	/* print（意味は色に依存しない。階層は濃淡で残す） */
 	--c-print-bg:         #ffffff;
 	--c-print-text:       #000000;
 	--c-print-line:       #cccccc;
 	--c-print-muted:      #555555;
-	--c-print-tag-bg:     #f4f4f4;
+	--c-print-tag-bg:     #f5f2ef;
 	--c-print-tag-border: #bbbbbb;
 	--c-print-tag-text:   #222222;
 	--c-print-accent:     #333333;
