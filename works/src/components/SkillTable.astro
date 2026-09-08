@@ -15,7 +15,11 @@ import { getIcon } from '../lib/icons';
 					{cat.items.toSorted((a, b) => b.years - a.years).map((item) => {
 						const icon = getIcon(item.name);
 						return (
-							<li class="skill-tag">
+							<li
+								class="skill-tag"
+								style={icon ? `--brand: #${icon.hex}` : undefined}
+								data-has-icon={icon ? '' : undefined}
+							>
 								{icon && (
 									<svg
 										class="skill-icon"
@@ -111,16 +115,26 @@ import { getIcon } from '../lib/icons';
 		white-space: nowrap;
 	}
 
+	/* コンセプトカラーは薄く混ぜる（D1角バッジ形状は維持、虹の原色ベタ塗りは避ける） */
+	.skill-tag[data-has-icon] {
+		border-color: color-mix(in srgb, var(--brand) 28%, var(--c-line-strong));
+		background: color-mix(in srgb, var(--brand) 12%, var(--c-mix-paper));
+		color: color-mix(in srgb, var(--brand) 72%, var(--c-mix-ink));
+	}
+
 	.skill-tag-years {
 		font-size: 0.85em;
-		color: var(--c-text-muted);
+		color: color-mix(in srgb, currentColor 55%, transparent);
 	}
 
 	.skill-icon {
 		flex-shrink: 0;
 		width: 1em;
 		height: 1em;
-		color: currentColor;
+		color: var(--brand, currentColor);
+	}
+
+	.skill-tag:not([data-has-icon]) .skill-icon {
 		opacity: 0.7;
 	}
 
@@ -160,7 +174,8 @@ import { getIcon } from '../lib/icons';
 			gap: 0.2em;
 		}
 
-		.skill-tag {
+		.skill-tag,
+		.skill-tag[data-has-icon] {
 			padding: 0.12em 0.45em;
 			background: var(--c-print-tag-bg);
 			border-color: var(--c-print-tag-border);
@@ -169,6 +184,10 @@ import { getIcon } from '../lib/icons';
 
 		.skill-tag-years {
 			color: var(--c-print-muted);
+		}
+
+		.skill-icon {
+			color: currentColor;
 		}
 	}
 </style>

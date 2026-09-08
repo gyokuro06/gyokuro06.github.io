@@ -35,6 +35,10 @@
 	--c-accent-soft: #f5f2ef;
 	--c-on-accent:   #ffffff;
 
+	/* brand-mix bases（スキルバッジのコンセプトカラー用） */
+	--c-mix-paper:   #ffffff;
+	--c-mix-ink:     #1c1917;
+
 	/* print（意味は色に依存しない。階層は濃淡で残す） */
 	--c-print-bg:         #ffffff;
 	--c-print-text:       #000000;
