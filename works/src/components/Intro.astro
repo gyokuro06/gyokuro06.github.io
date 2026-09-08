@@ -7,7 +7,6 @@ import { profile } from '../data/works';
 		<div class="intro-body">
 			<p class="intro-role" aria-label="肩書き">{profile.title}</p>
 			<h1 class="intro-name" contenteditable="true" spellcheck="false">{profile.name}</h1>
-			<hr class="intro-rule" />
 			<div class="intro-lead">
 				{profile.lead.map((line) => (
 					<p>
@@ -27,7 +26,6 @@ import { profile } from '../data/works';
 <style>
 	.intro {
 		background: var(--c-bg);
-		border-block-end: 1px solid var(--c-line);
 	}
 
 	.intro-inner {
@@ -47,15 +45,15 @@ import { profile } from '../data/works';
 	}
 
 	.intro-role {
-		margin: 0 0 var(--space-3);
+		margin: 0 0 var(--space-2);
 		font-size: var(--text-sm);
 		font-weight: 400;
-		letter-spacing: 0.02em;
+		letter-spacing: 0;
 		color: var(--c-text-muted);
 	}
 
 	.intro-name {
-		margin: 0 0 var(--space-5);
+		margin: 0 0 var(--space-6);
 		font-family: var(--font-display);
 		font-size: var(--text-3xl);
 		font-weight: 700;
@@ -87,11 +85,6 @@ import { profile } from '../data/works';
 		overflow: hidden;
 	}
 
-	.intro-rule {
-		border: none;
-		border-block-start: 1px solid var(--c-line);
-		margin: 0 0 var(--space-5);
-	}
 
 	.intro-lead {
 		max-width: var(--measure-lead);
@@ -138,7 +131,6 @@ import { profile } from '../data/works';
 	@media print {
 		.intro {
 			background: var(--c-print-bg);
-			border-color: var(--c-print-line);
 			break-inside: avoid;
 			break-after: avoid;
 		}
@@ -164,10 +156,6 @@ import { profile } from '../data/works';
 			cursor: default;
 		}
 
-		.intro-rule {
-			margin-bottom: var(--space-2);
-			border-color: var(--c-print-line);
-		}
 
 		.intro-lead {
 			line-height: 1.55;
