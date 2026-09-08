@@ -23,7 +23,11 @@ import { getIcon } from '../lib/icons';
 						{project.techStack.map((tech) => {
 							const icon = getIcon(tech);
 							return (
-								<li class="project-tag">
+								<li
+									class="project-tag"
+									style={icon ? `--brand: #${icon.hex}` : undefined}
+									data-has-icon={icon ? '' : undefined}
+								>
 									{icon && (
 										<svg
 											class="skill-icon"
@@ -157,11 +161,20 @@ import { getIcon } from '../lib/icons';
 		line-height: 1.5;
 	}
 
+	.project-tag[data-has-icon] {
+		border-color: color-mix(in srgb, var(--brand) 45%, var(--c-line-strong));
+		background: color-mix(in srgb, var(--brand) 18%, var(--c-mix-paper));
+		color: color-mix(in srgb, var(--brand) 82%, var(--c-mix-ink));
+	}
+
 	.skill-icon {
 		flex-shrink: 0;
 		width: 1em;
 		height: 1em;
-		color: currentColor;
+		color: var(--brand, currentColor);
+	}
+
+	.project-tag:not([data-has-icon]) .skill-icon {
 		opacity: 0.7;
 	}
 
@@ -234,11 +247,16 @@ import { getIcon } from '../lib/icons';
 			gap: 0.2em;
 		}
 
-		.project-tag {
+		.project-tag,
+		.project-tag[data-has-icon] {
 			padding: 0.1em 0.4em;
 			background: var(--c-print-tag-bg);
 			border-color: var(--c-print-tag-border);
 			color: var(--c-print-tag-text);
+		}
+
+		.skill-icon {
+			color: currentColor;
 		}
 
 		.project-body {
