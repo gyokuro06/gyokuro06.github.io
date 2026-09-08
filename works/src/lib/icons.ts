@@ -8,7 +8,7 @@ import {
 	siHuggingface, siScala, siDart,
 } from 'simple-icons';
 
-export type SimpleIcon = { path: string; hex: string; title: string };
+export type SimpleIcon = { path?: string; hex: string; title: string };
 
 const iconMap: Record<string, SimpleIcon> = {
 	Kotlin: siKotlin,
@@ -32,6 +32,8 @@ const iconMap: Record<string, SimpleIcon> = {
 	Laravel: siLaravel,
 	FastAPI: siFastapi,
 	GCP: siGooglecloud,
+	// simple-icons に AWS グリフなし。色のみ（Amazon オレンジ）
+	AWS: { title: 'AWS', hex: 'FF9900' },
 	'GitHub Actions': siGithubactions,
 	Scala: siScala,
 	Dart: siDart,
